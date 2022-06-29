@@ -22,7 +22,7 @@
     <div class="container">
         <div class="box-user">
             <p>Você não criou nenhum <br> quizz ainda :(</p>
-            <button>Criar Quizz</button>
+            <button onclick="createQuizz()">Criar Quizz</button>
         </div>
         <section>
             <p>Todos os Quizzes</p>
@@ -35,13 +35,33 @@
     <!-- Tela 2 - Página de um quizz (perguntas) -->
     <div class="quiz-page hidden">
 
-        
+
 
 
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="./script/script.js"></script>
+
+    <!-- Tela 3 - Página de criação de um quizz -->
+
+    <!-- Tela 3 - Escolher nível de um quizz -->
+    <div class="container create-quizz hidden">
+        <div class="quizz-level">
+            <div class="title-page">Agora, decida os níveis!</div>
+            <div class="quizz-form">
+                <form action="">
+                    <label for="">Nível 1</label>
+                    <input type="text" placeholder="Título do nível">
+                    <input type="number" placeholder="% de acerto mínimo">
+                    <input type="url" placeholder="URL da imagem">
+                    <input type="text" placeholder="Descrição do nível">
+                </form>
+            </div>
+            <button class="quizz-button" type="submit" onclick="quizzReady()">Finalizar Quizz</button>
+        </div>
+
+
+
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="./script/script.js"></script>
 </body>
 
 </html>

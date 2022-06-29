@@ -44,12 +44,12 @@ function renderQuizz() {
 }
 
 // PASSO 4 - Inicia quizz (clicando no quizz adiciona o hidden ao section e box-user)
-function startQuizz(selectedQuizz) {
+const $quizz = document.querySelector('section');
+const $boxUser = document.querySelector('.box-user');
+const $container = document.querySelector('.container');
+const $quizPage = document.querySelector('.quiz-page');
 
-    const $quizz = document.querySelector('section');
-    const $boxUser = document.querySelector('.box-user');
-    const $container = document.querySelector('.container')
-    const $quizPage = document.querySelector('.quiz-page')
+function startQuizz(selectedQuizz) {
 
     $quizz.classList.add('hidden');
     $boxUser.classList.add('hidden');
@@ -114,4 +114,47 @@ function renderIndividualQuizz() {
         };
     };
     
+}
+
+const $quizzInformation = document.querySelector('.quizz-information');
+const $quizzQuestions = document.querySelector('.quizz-questions');
+const $quizzLevel = document.querySelector('.quizz-level');
+const $quizzReady = document.querySelector('.quizz-ready');
+
+function createQuizz() {
+
+    $boxUser.classList.add('hidden');
+    $quizz.classList.add('hidden');
+
+    quizzInformation();
+
+}
+
+function quizzInformation() {
+
+    console.log('hellooooo')
+    $quizzInformation.classList.remove('hidden');
+    
+    quizzQuestions();
+}
+
+function quizzQuestions() {
+
+    $quizzInformation.classList.add('hidden');
+    $quizzQuestions.classList.remove('hidden');
+    
+    quizzLevel();
+}
+
+function quizzLevel() {
+
+    $quizzQuestions.classList.add('hidden');
+    $quizzLevel.classList.remove('hidden');
+    
+}
+
+function quizzReady() {
+
+    $quizzLevel.classList.add('hidden');
+    $quizzReady.classList.remove('hidden');
 }
