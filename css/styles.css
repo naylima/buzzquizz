@@ -153,6 +153,19 @@ section p {
 .quiz-head {
     width: 100%;
     height: 227px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quiz-head h1 {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 39px;
+    line-height: 22px;
+    color: #FFFFFF;
+    text-align: center;
 }
 
 .question-box {
@@ -216,7 +229,7 @@ section p {
     word-break: break-all;
 }
 
-/* Tela 3 - Criação de um quizz */
+/* Tela 3.3 - Criação de um quizz */
 
 form {
     display: flex;
@@ -279,6 +292,51 @@ label {
     margin-top: 12px;
 }
 
+/* Tela 3.1 - Informações básicas do Quiz */
+
+.basic-info {
+    width: 100%;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Roboto';
+    background-color: #FAFAFA;
+}
+
+.basic-info h1 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 70px;
+}
+
+.form-container {
+    width: 600px;
+    height: 256px;
+    margin-top: 27px;
+    margin-bottom: 85px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+
+.form-container input {
+    width: 564px;
+    height: 46px;
+    border-radius: 5px;
+}
+
+#btn-submit {
+    width: 370px;
+    height: 54px;
+    font-size: 18px;
+    color: #FFFFFF;
+    border-radius: 15px;
+    background-color: #EC362D;
+}
+ 
 .hidden {
     display: none;
 }

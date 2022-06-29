@@ -102,6 +102,10 @@ function renderIndividualQuizz() {
                                             `;
 
         let answers = questions[i].answers;
+        answers.sort(comparador); 
+        function comparador() { 
+	        return Math.random() - 0.5; 
+        }
         for (let j = 0; j < answers.length; j++) {
 
             const questionBox = document.querySelectorAll(".question-box .alternatives");
@@ -116,45 +120,14 @@ function renderIndividualQuizz() {
     
 }
 
-const $quizzInformation = document.querySelector('.quizz-information');
-const $quizzQuestions = document.querySelector('.quizz-questions');
-const $quizzLevel = document.querySelector('.quizz-level');
-const $quizzReady = document.querySelector('.quizz-ready');
+// Passo 7 - Tela de criação: Informações básicas do quiz
 
-function createQuizz() {
+function quizBasicInfo() {
 
-    $boxUser.classList.add('hidden');
-    $quizz.classList.add('hidden');
+    const $container = document.querySelector('.container');
+    const $info = document.querySelector('.basic-info');
 
-    quizzInformation();
+    $container.classList.add('hidden');
+    $info.classList.remove('hidden');
 
-}
-
-function quizzInformation() {
-
-    console.log('hellooooo')
-    $quizzInformation.classList.remove('hidden');
-    
-    quizzQuestions();
-}
-
-function quizzQuestions() {
-
-    $quizzInformation.classList.add('hidden');
-    $quizzQuestions.classList.remove('hidden');
-    
-    quizzLevel();
-}
-
-function quizzLevel() {
-
-    $quizzQuestions.classList.add('hidden');
-    $quizzLevel.classList.remove('hidden');
-    
-}
-
-function quizzReady() {
-
-    $quizzLevel.classList.add('hidden');
-    $quizzReady.classList.remove('hidden');
 }

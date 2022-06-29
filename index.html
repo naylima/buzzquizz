@@ -22,7 +22,7 @@
     <div class="container">
         <div class="box-user">
             <p>Você não criou nenhum <br> quizz ainda :(</p>
-            <button onclick="createQuizz()">Criar Quizz</button>
+            <button onclick="quizBasicInfo()">Criar Quizz</button>
         </div>
         <section>
             <p>Todos os Quizzes</p>
@@ -33,16 +33,27 @@
     </div>
 
     <!-- Tela 2 - Página de um quizz (perguntas) -->
-    <div class="quiz-page hidden">
-
-
+    <section class="quiz-page hidden"></section>
 
 
     </div>
 
     <!-- Tela 3 - Página de criação de um quizz -->
 
-    <!-- Tela 3 - Escolher nível de um quizz -->
+    <!-- Tela 3.1 - Informações básicas do Quiz -->
+
+    <section class="basic-info hidden">
+        <h1>Comece pelo Começo</h1>
+        <form class="form-container">
+            <input type="text" placeholder="Título do seu quizz">
+            <input type="text" placeholder="URL da imagem do seu quizz">
+            <input type="text" placeholder="Quantidade de perguntas do quizz">
+            <input type="text" placeholder="Quantidade de níveis do quizz">
+        </form>
+        <button id="btn-submit">Prosseguir para criar perguntas</button>
+    </section>
+
+    <!-- Tela 3.3 - Escolher nível de um quizz -->
     <div class="container create-quizz hidden">
         <div class="quizz-level">
             <div class="title-page">Agora, decida os níveis!</div>
@@ -57,11 +68,9 @@
             </div>
             <button class="quizz-button" type="submit" onclick="quizzReady()">Finalizar Quizz</button>
         </div>
-
-
-
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <script src="./script/script.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./script/script.js"></script>
 </body>
 
 </html>
