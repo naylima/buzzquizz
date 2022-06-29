@@ -102,6 +102,10 @@ function renderIndividualQuizz() {
                                             `;
 
         let answers = questions[i].answers;
+        answers.sort(comparador); 
+        function comparador() { 
+	        return Math.random() - 0.5; 
+        }
         for (let j = 0; j < answers.length; j++) {
 
             const questionBox = document.querySelectorAll(".question-box .alternatives");
@@ -114,4 +118,16 @@ function renderIndividualQuizz() {
         };
     };
     
+}
+
+// Passo 7 - Tela de criação: Informações básicas do quiz
+
+function quizBasicInfo() {
+
+    const $container = document.querySelector('.container');
+    const $info = document.querySelector('.basic-info');
+
+    $container.classList.add('hidden');
+    $info.classList.remove('hidden');
+
 }
