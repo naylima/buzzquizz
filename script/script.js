@@ -6,6 +6,11 @@ let object = {
     levels: []
 }
 
+const $info = document.querySelector('.basic-info');
+const $quizzLevel = document.querySelector('.quizz-level');
+const $quizzSuccess = document.querySelector('.quizz-success');
+const $initialScreen = document.querySelector('.initial-screen');
+
 const urlApi = 'https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes';
 
 searchQuizz();
@@ -49,13 +54,14 @@ function renderQuizz() {
 }
 
 // PASSO 4 - Inicia quizz (clicando no quizz adiciona o hidden ao section e box-user)
+const $quizz = document.querySelector('section');
+const $boxUser = document.querySelector('.box-user');
+const $container = document.querySelector('.container');
+const $quizPage = document.querySelector('.quiz-page');
+
 function startQuizz(selectedQuizz) {
 
-    const $quizz = document.querySelector('section');
-    const $boxUser = document.querySelector('.box-user');
-    const $container = document.querySelector('.container')
-    const $quizPage = document.querySelector('.quiz-page')
-
+    $quizzSuccess.classList.add('hidden');
     $quizz.classList.add('hidden');
     $boxUser.classList.add('hidden');
     $container.classList.add('hidden');
@@ -127,12 +133,9 @@ function renderIndividualQuizz() {
 
 // Passo 7 - Tela de criação: Informações básicas do quiz
 
-
-
 function quizBasicInfo() {
 
     const $container = document.querySelector('.container');
-    const $info = document.querySelector('.basic-info');
 
     $container.classList.add('hidden');
     $info.classList.remove('hidden');
@@ -164,4 +167,28 @@ function validations() {
         alert("Verifique as consições necessárias para criar o Quizz e tente novamente (:");
     }
 
+}
+
+function quizzLevel() {
+
+    $info.classList.add('hidden');
+    $quizzLevel.classList.remove('hidden');
+    
+}
+
+function quizzReady() {
+    
+        $quizzLevel.classList.add('hidden');
+        $quizzSuccess.classList.remove('hidden');
+        
+}
+
+
+function quizzHome() {
+
+    $quizzLevel.classList.add('hidden');
+    $info.classList.add('hidden');
+    $quizzSuccess.classList.add('hidden');
+    $initialScreen.classList.remove('hidden');
+    
 }

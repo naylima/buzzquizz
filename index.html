@@ -19,7 +19,7 @@
         <h1 class="title">BuzzQuizz</h1>
     </div>
 
-    <div class="container">
+    <div class="container initial-screen">
         <div class="box-user">
             <p>Você não criou nenhum <br> quizz ainda :(</p>
             <button onclick="quizBasicInfo()">Criar Quizz</button>
@@ -35,6 +35,11 @@
     <!-- Tela 2 - Página de um quizz (perguntas) -->
     <section class="quiz-page hidden"></section>
 
+
+    </div>
+
+    <!-- Tela 3 - Página de criação de um quizz -->
+
     <!-- Tela 3.1 - Informações básicas do Quiz -->
 
     <section class="basic-info hidden">
@@ -46,9 +51,42 @@
             <input type="text" placeholder="Quantidade de níveis do quizz">
         </form>
         <button id="btn-submit" onclick="validations()">Prosseguir para criar perguntas</button>
-        <p class="error-validation hidden"></p>
     </section>
-    
+
+    <!-- Tela 3.3 - Escolher nível de um quizz -->
+    <div class="container quizz-level hidden">
+        <div>
+            <div class="title-page">Agora, decida os níveis!</div>
+            <div class="quizz-form">
+                <form action="">
+                    <label for="">Nível 1</label>
+                    <input type="text" minlength="10" placeholder="Título do nível">
+                    <input type="number" placeholder="% de acerto mínimo">
+                    <input type="url" placeholder="URL da imagem">
+                    <input type="text" placeholder="Descrição do nível">
+                </form>
+            </div>
+            <button class="quizz-button" type="submit" onclick="quizzReady()">Finalizar Quizz</button>
+        </div>
+    </div>
+
+    <!-- Tela 3.4 - Escolher nível de um quizz -->
+    <div class="container quizz-success hidden">
+        <div class="title-page">Seu quizz está pronto!</div>
+        <div>
+            <div class="quizz" id="${item.id}">
+                <img class="" src="${item.image}" alt="">
+                <div class="title-quizz">
+                    Titulo do quizz
+                </div>
+            </div>
+        </div>
+        <div>
+            <button class="quizz-button" type="submit" onclick="startQuizz(this)">Acessar Quizz</button>
+            <button class="home-button" type="submit" onclick="quizzHome();">Acessar Quizz</button>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./script/script.js"></script>
 </body>
