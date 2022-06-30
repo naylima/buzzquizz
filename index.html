@@ -40,18 +40,27 @@
 
     <!-- Tela 3 - Página de criação de um quizz -->
 
-    <!-- Tela 3.1 - Informações básicas do Quiz -->
+    <!-- Tela 3.1 - Informações básicas do quizz -->
 
     <section class="basic-info hidden">
         <h1>Comece pelo Começo</h1>
         <form class="form-container">
-            <input type="text" placeholder="Título do seu quizz" data-max-length="65" data-min-length="20" data-required>
+            <input type="text" placeholder="Título do seu quizz">
             <input type="text" placeholder="URL da imagem do seu quizz">
             <input type="text" placeholder="Quantidade de perguntas do quizz">
             <input type="text" placeholder="Quantidade de níveis do quizz">
         </form>
-        <button id="btn-submit" onclick="validations()">Prosseguir para criar perguntas</button>
+        <button id="btn-submit" onclick="validationsInfo()">Prosseguir para criar perguntas</button>
     </section>
+
+    <!-- Tela 3.2 - Prguntas do quizz-->
+
+    <section class="quiz-questions hidden">
+        
+        <h1>Crie suas perguntas</h1>
+       
+    </section>
+
 
     <!-- Tela 3.3 - Escolher nível de um quizz -->
     <div class="container quizz-level hidden">
@@ -88,6 +97,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script src="./script/script.js"></script>
 </body>
 

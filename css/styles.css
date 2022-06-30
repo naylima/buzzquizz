@@ -147,7 +147,6 @@ section p {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #FAFAFA;
 }
 
 .quiz-head {
@@ -229,9 +228,10 @@ section p {
     word-break: break-all;
 }
 
-/* Tela 3.1 - Informações básicas do Quiz */
+/* Tela 3.1 e 3.2- Informações básicas do Quiz e perguntas do Quiz*/
 
-.basic-info {
+.basic-info,
+.quiz-questions {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -239,17 +239,18 @@ section p {
     font-family: 'Roboto';
 }
 
-.basic-info h1 {
+.basic-info h1,
+.quiz-questions h1 {
     font-size: 20px;
     font-weight: 700;
     margin-top: 70px;
 }
 
-.form-container {
+.form-container,
+.questions-container {
     width: 600px;
     height: 256px;
     margin-top: 27px;
-    margin-bottom: 85px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -258,7 +259,8 @@ section p {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
 }
 
-.form-container input {
+.form-container input,
+.questions-container input {
     width: 564px;
     height: 46px;
     border: 1px solid #D1D1D1;
@@ -266,7 +268,8 @@ section p {
     margin: 4.5px 0;
 }
 
-.form-container input::placeholder {
+.form-container input::placeholder,
+.questions-container input::placeholder {
     color: #D1D1D1;
     font-style: italic;
     padding: 10px;
@@ -276,9 +279,43 @@ section p {
     width: 370px;
     height: 54px;
     font-size: 18px;
+    margin-top: 81px;
     color: #FFFFFF;
     border-radius: 15px;
     background-color: #EC362D;
+}
+
+.questions-container {
+    height: auto;
+}
+
+.main > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.questions-container label {
+    font-size: 18px;
+    align-self: flex-start;
+}
+
+.questions-container label:first-child {
+    width: 564px;
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+    margin-bottom: 5px;
+}
+
+.questions-container ion-icon {
+    cursor: pointer;
+}
+
+.swap {
+    display: none;
+    transition: all 300ms linear;
 }
 
 /* Tela 3.3 - Criação de um quizz */
