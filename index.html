@@ -67,15 +67,27 @@
         <div>
             <div class="title-page">Agora, decida os níveis!</div>
             <div class="quizz-form">
-                <form action="">
-                    <label for="">Nível 1</label>
-                    <input type="text" minlength="10" placeholder="Título do nível">
-                    <input type="number" placeholder="% de acerto mínimo">
-                    <input type="url" placeholder="URL da imagem">
-                    <input type="text" placeholder="Descrição do nível">
+                <form>
+                    <h2>Nível 1</h2>
+                    <div>
+                        <input data-title type="text" minlength="10" required placeholder="Título do nível">
+                        <label>Mínimo 10 caracteres</label>
+                    </div>
+                    <div>
+                        <input data-number type="number" min="0" max="100" required placeholder="% de acerto mínimo">
+                        <label>1 a 100</label>
+                    </div>
+                    <div>
+                        <input data-url type="url" required placeholder="URL da imagem">
+                        <label>Ex.: https://www.google.com/</label>
+                    </div>
+                    <div>
+                        <input data-description type="text" required placeholder="Descrição do nível">
+                        <label>Mínimo 30 caracteres</label>
+                    </div>
                 </form>
             </div>
-            <button class="quizz-button" type="submit" onclick="quizzReady()">Finalizar Quizz</button>
+            <button class="quizz-button disabled" type="submit" onclick="quizzReady()">Finalizar Quizz</button>
         </div>
     </div>
 

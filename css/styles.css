@@ -340,7 +340,6 @@ form {
     height: 46px;
     border: 1px solid #d1d1d1;
     border-radius: 5px;
-    margin: 12px 0;
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
@@ -355,7 +354,11 @@ form {
 input:placeholder-shown {
     font-style: italic;
  }
- 
+
+ .quizz-form div {
+    margin: 12px 0;
+ }
+
 .title-page {
     width: 100%;
     font-family: 'Roboto', sans-serif;
@@ -368,6 +371,12 @@ input:placeholder-shown {
 }
 
 label {
+    font-size: 12px;
+    font-family: 'Roboto', sans-serif;
+    color: #b9b9b9;
+}
+
+h2 {
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
     font-size: 20px;
@@ -384,6 +393,10 @@ label {
     color: #FFFFFF;
     border-radius: 15px;
     margin-block: 12px;
+}
+
+.disabled {
+    opacity: 0.5;
 }
 
 .home-button {
