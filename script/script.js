@@ -8,11 +8,12 @@ let object = {
 }
 
 const $info = document.querySelector('.basic-info');
+const $quizzLevelBox = document.querySelector('.quizz-level .title-page');
 const $quizzLevel = document.querySelector('.quizz-level');
 const $quizzSuccess = document.querySelector('.quizz-success');
 const $initialScreen = document.querySelector('.initial-screen');
 
-const urlApi = 'https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes';
+const urlApi = 'https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes';
 
 searchQuizz();
 
@@ -258,6 +259,46 @@ function validationsQuest() {
         alert("Verifique as condições necessárias para criar o Quizz e tente novamente (:");
     }
 
+} 
+
+function quizzLevel() {
+
+    numberLevels = document.querySelector('[data-level]').value;
+
+    for (let i = 0; i < numberLevels; i++) {
+
+        $info.classList.add('hidden');
+        
+        $quizzLevel.classList.remove('hidden');
+
+        let template = /* html */`
+            <div class="quizz-form">
+                <form>
+                    <h2>Nível ${[i + 1]} <span>
+                            <ion-icon name="create-outline"></ion-icon>
+                        </span></h2>
+                    <div>
+                        <input data-title type="text" minlength="10" required placeholder="Título do nível">
+                        <label>Mínimo 10 caracteres</label>
+                    </div>
+                    <div>
+                        <input data-number type="number" min="0" max="100" required placeholder="% de acerto mínimo">
+                        <label>1 a 100</label>
+                    </div>
+                    <div>
+                        <input data-url type="url" required placeholder="URL da imagem">
+                        <label>Ex.: https://www.google.com/</label>
+                    </div>
+                    <div>
+                        <input data-description type="text" required placeholder="Descrição do nível">
+                        <label>Mínimo 30 caracteres</label>
+                    </div>
+                </form>
+        </div>
+        `;
+
+        $quizzLevelBox.innerHTML += template;
+    }
 }
 
 function validationLevel() {
@@ -290,11 +331,34 @@ function quizzLevel() {
 }
 
 function quizzReady() {
-    
+
     if (validationLevel() === true) {
-        
+
         $quizzLevel.classList.add('hidden');
         $quizzSuccess.classList.remove('hidden');
+
+        const $title = document.querySelector('.quizz-form input').value;
+        const $urlImage = document.querySelector('.quizz-form [data-url]').value;
+
+        $quizzSuccess.innerHTML = '';
+
+        let template = /* html */`
+        <div class="title-page">Seu quizz está pronto!</div>
+            <div>
+                <div class="quizz-ready">
+                    <img class="" src="${$urlImage}" alt="">
+                    <div class="title-quizz">
+                        ${$title}
+                    </div>
+                </div>
+            </div>
+        <div>
+        <div>
+            <button class="quizz-button" type="submit" onclick="startQuizz(this)">Acessar Quizz</button>
+            <button class="home-button" type="submit" onclick="quizzHome();">Acessar Quizz</button>
+        </div>
+        `
+        $quizzSuccess.innerHTML += template;
 
     } else {
         alert('Verifique as condições necessárias para criar o Quizz e tente novamente (:')
@@ -302,12 +366,12 @@ function quizzReady() {
 }
 
 function quizzHome() {
-    
+
     $quizzLevel.classList.add('hidden');
     $info.classList.add('hidden');
     $quizzSuccess.classList.add('hidden');
     $initialScreen.classList.remove('hidden');
-    
+
 }
 
 /* Validações */
@@ -331,9 +395,9 @@ function colorValidation(str){
 const $button = document.querySelector('.quizz-button');
 
 document.querySelectorAll('.quizz-form input').forEach(input => {
-        
+
     input.addEventListener('input', () => {
-        
+
         if (validationLevel() === true) {
             $button.classList.remove('disabled');
 

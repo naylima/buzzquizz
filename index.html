@@ -42,13 +42,13 @@
 
     <!-- Tela 3.1 - Informações básicas do quizz -->
 
-    <section class="basic-info hidden">
+    <section class="basic-info">
         <h1>Comece pelo Começo</h1>
         <form class="form-container">
             <input type="text" placeholder="Título do seu quizz">
             <input type="text" placeholder="URL da imagem do seu quizz">
             <input type="text" placeholder="Quantidade de perguntas do quizz">
-            <input type="text" placeholder="Quantidade de níveis do quizz">
+            <input data-level type="text" placeholder="Quantidade de níveis do quizz">
         </form>
         <button id="btn-submit" onclick="validationsInfo()">Prosseguir para criar perguntas</button>
     </section>
@@ -66,9 +66,11 @@
     <div class="container quizz-level hidden">
         <div>
             <div class="title-page">Agora, decida os níveis!</div>
-            <div class="quizz-form">
+            <!-- <div class="quizz-form">
                 <form>
-                    <h2>Nível 1</h2>
+                    <h2>Nível 1 <span>
+                            <ion-icon name="create-outline"></ion-icon>
+                        </span></h2>
                     <div>
                         <input data-title type="text" minlength="10" required placeholder="Título do nível">
                         <label>Mínimo 10 caracteres</label>
@@ -86,28 +88,17 @@
                         <label>Mínimo 30 caracteres</label>
                     </div>
                 </form>
-            </div>
+            </div> -->
             <button class="quizz-button disabled" type="submit" onclick="quizzReady()">Finalizar Quizz</button>
         </div>
     </div>
 
     <!-- Tela 3.4 - Escolher nível de um quizz -->
     <div class="container quizz-success hidden">
-        <div class="title-page">Seu quizz está pronto!</div>
-        <div>
-            <div class="quizz" id="${item.id}">
-                <img class="" src="${item.image}" alt="">
-                <div class="title-quizz">
-                    Titulo do quizz
-                </div>
-            </div>
-        </div>
-        <div>
-            <button class="quizz-button" type="submit" onclick="startQuizz(this)">Acessar Quizz</button>
-            <button class="home-button" type="submit" onclick="quizzHome();">Acessar Quizz</button>
-        </div>
-    </div>
 
+    </div>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script src="./script/script.js"></script>
