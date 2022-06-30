@@ -251,6 +251,7 @@ section p {
     margin-bottom: 85px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     background: #FFFFFF;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
@@ -259,7 +260,15 @@ section p {
 .form-container input {
     width: 564px;
     height: 46px;
+    border: 1px solid #D1D1D1;
     border-radius: 5px;
+    margin: 4.5px 0;
+}
+
+.form-container input::placeholder {
+    color: #D1D1D1;
+    font-style: italic;
+    padding: 10px;
 }
 
 #btn-submit {
@@ -269,6 +278,14 @@ section p {
     color: #FFFFFF;
     border-radius: 15px;
     background-color: #EC362D;
+}
+
+/* validações */
+.error-validation{
+    color:#ff1a1a;
+    position: absolute;
+    top: 57px;
+    font-size: .8rem;
 }
  
 .hidden {

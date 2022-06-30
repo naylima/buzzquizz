@@ -40,12 +40,13 @@
     <section class="basic-info hidden">
         <h1>Comece pelo Começo</h1>
         <form class="form-container">
-            <input type="text" placeholder="Título do seu quizz">
+            <input type="text" placeholder="Título do seu quizz" data-max-length="65" data-min-length="20" data-required>
             <input type="text" placeholder="URL da imagem do seu quizz">
             <input type="text" placeholder="Quantidade de perguntas do quizz">
             <input type="text" placeholder="Quantidade de níveis do quizz">
         </form>
-        <button id="btn-submit">Prosseguir para criar perguntas</button>
+        <button id="btn-submit" onclick="validations()">Prosseguir para criar perguntas</button>
+        <p class="error-validation hidden"></p>
     </section>
     
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

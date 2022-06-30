@@ -1,5 +1,10 @@
 let quizz;
-let object;
+let object = {
+    title: '',
+    image: '',
+    questions: [],
+    levels: []
+}
 
 const urlApi = 'https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes';
 
@@ -122,6 +127,8 @@ function renderIndividualQuizz() {
 
 // Passo 7 - Tela de criação: Informações básicas do quiz
 
+
+
 function quizBasicInfo() {
 
     const $container = document.querySelector('.container');
@@ -129,5 +136,32 @@ function quizBasicInfo() {
 
     $container.classList.add('hidden');
     $info.classList.remove('hidden');
+}
+
+function validations() {
+    
+    let quizTitle = document.querySelector('input:first-child').value;
+    let URLimg = document.querySelector('input:nth-child(2)').value;
+    let nQuestions = document.querySelector('input:nth-child(3)').value;
+    let nLevels = document.querySelector('input:nth-child(4)').value;
+    
+    let quiztitleOK = (quizTitle.length > 19 && quizTitle.length < 66);
+    let nQuestionsOK = (nQuestions > 4);
+    let nLevelsOK = (nLevels > 1);
+    let URLimgOK = ((URLimg) => {
+        if (URLimg != null && URLimg != '') {
+            let regex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
+            return regex.test(str);
+        }else{
+            return false;
+        };
+    });
+
+    if (quiztitleOK && nQuestionsOK && nLevelsOK && URLimgOK) {
+        title = quizTitle;
+        image = URLimg;
+    } else {
+        alert("Verifique as consições necessárias para criar o Quizz e tente novamente (:");
+    }
 
 }
