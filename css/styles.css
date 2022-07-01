@@ -169,21 +169,20 @@ section p {
 
 .question-box {
     width: 759px;
-    height: 676px;
+    height: auto;
     margin-top: 42px;
+    padding: 25px;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
     background-color: #FFF;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
 }
 
 .question {
-    width: 700px;
+    width: 100%;
     height: 100px;
-    margin-top: 30px;
-    margin-bottom: 13px;
     display: flex;
     justify-content: center;
 }
@@ -192,20 +191,20 @@ section p {
     text-align: center;
     margin: auto 16px;
     font-family: Roboto;
-    font-style: normal;
     font-weight: 600;
     font-size: 19px;
-    line-height: 22px;
-    color: #FFFFFF
+    color: #FFF;
 }
 
 .alternatives {
-    width: 700px;
-    height: 676px;
-    margin-bottom: 10px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+}
+
+.alternatives > div {
+    margin-top: 25px;
 }
 
 .alternatives img {
@@ -217,15 +216,25 @@ section p {
 }
 
 .alternatives p {
-    font-family: Roboto;
-    font-style: normal;
+    font-family: 'Roboto';
     font-weight: bold;
-    font-size: 13px;
-    line-height: 15px;
-    margin-top: 5px;
-    width: 163px;
-    height: auto;
-    word-break: break-all;
+    font-size: 15px;
+    margin-top: 5px; 
+    word-break: break-all;   
+}
+
+.non-selected {
+    filter: opacity(0.3);
+    transition:all 500ms linear;
+    pointer-events: none;
+}
+
+.correct p {
+    color: green;
+}
+
+.wrong p {
+    color: red;
 }
 
 /* Tela 3.1 e 3.2- Informações básicas do Quiz e perguntas do Quiz*/
@@ -315,7 +324,7 @@ section p {
 
 .swap {
     display: none;
-    transition: all 300ms linear;
+    transition: all 500ms linear;
 }
 
 /* Tela 3.3 - Criação de um quizz */

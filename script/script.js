@@ -93,6 +93,7 @@ function renderIndividualQuizz() {
 
     const quizPage = document.querySelector(".quiz-page");
 
+
     quizPage.innerHTML += `<div class="quiz-head" 
                             style="background: linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), 
                             url(${object.image}) no-repeat; 
@@ -110,9 +111,8 @@ function renderIndividualQuizz() {
                                     style="background-color: ${questions[i].color} ">
                                         <h2>${questions[i].title}</h2>
                                     </div>
-                                    <div class="alternatives">
-                                    </div>
-                                            `;
+                                    <div class="alternatives"></div>
+                                </div>`;
 
         let answers = questions[i].answers;
         answers.sort(comparador);
@@ -123,7 +123,7 @@ function renderIndividualQuizz() {
 
             const questionBox = document.querySelectorAll(".question-box .alternatives");
             questionBox[questionBox.length - 1].innerHTML += `
-                                    <div >
+                                    <div class="alternative ${answers[j].isCorrectAnswer}" onClick="selectedAnswer(this)">
                                         <img src="${answers[j].image}">
                                         <p>${answers[j].text}</p>
                                     </div>
@@ -133,11 +133,41 @@ function renderIndividualQuizz() {
 
 }
 
+// Comportamento de respostas
+
+function selectedAnswer(answer) {
+
+    answer.classList.add('selected');
+
+    // add efeito esbranquiçado
+    let alternatives = answer.parentNode.querySelectorAll('.alternative');
+
+    for (let i = 0; i < alternatives.length; i++) {
+        alternatives[i].classList.add('non-selected'); 
+        if (alternatives[i].classList.contains('true')) {
+            alternatives[i].classList.add('correct');
+        }
+        if (alternatives[i].classList.contains('false')) {
+            alternatives[i].classList.add('wrong');
+        }
+    }
+    answer.classList.remove('non-selected');
+
+    // scrollar para a próxima pergunta - NÃO TÁ FUNCIONANDO ***
+    let currentQuestion = answer.parentNode;
+    let nextQuestion = currentQuestion.parentNode.nextSibling;
+    setTimeout( () => {
+        nextQuestion.scrollIntoView({
+            behavior: 'smooth'
+          });
+    },2000);
+}
+
+
 // Passo 7 - Tela de criação: Informações básicas do quiz
 
 function quizBasicInfo() {
 
-    const $container = document.querySelector('.container');
     const $info = document.querySelector('.basic-info');
 
     $container.classList.add('hidden');
@@ -391,6 +421,7 @@ function colorValidation(str){
     const regex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/i;
         return regex.test(str);
 };
+
 //Habilita botão do form da tela 3.3
 const $button = document.querySelector('.quizz-button');
 
