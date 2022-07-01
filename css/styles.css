@@ -204,12 +204,12 @@ section p {
 }
 
 .alternatives > div,
-.nivels-container {
+.levels-container {
     margin-top: 25px;
 }
 
 .alternatives img,
-.nivels-container img {
+.levels-container img {
     width: 340px;
     height: 250px;
     background-position: center;
@@ -239,15 +239,15 @@ section p {
     color: red;
 }
 
-.nivels-container {
+.levels-container {
     display: flex;
 }
 
-.nivels-container img {
+.levels-container img {
     width: 50%;
 }
 
-.nivels-container span {
+.levels-container span {
     width: 50%;
     margin-left: 25px;
     font-family: Roboto;

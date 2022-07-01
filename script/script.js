@@ -91,10 +91,8 @@ function processIndividualQuizz(response) {
 // Passo 6 - Renderiza as tela do quiz individual com as respectivas perguntas
 function renderIndividualQuizz() {
 
-    const quizPage = document.querySelector(".quiz-page");
 
-
-    quizPage.innerHTML += `<div class="quiz-head" 
+    $quizPage.innerHTML += `<div class="quiz-head" 
                             style="background: linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), 
                             url(${object.image}) no-repeat; 
                             background-size: cover">
@@ -102,11 +100,11 @@ function renderIndividualQuizz() {
                             </div>`;
 
     let questions = object.questions;
-
+    nQuestions = questions.length;
 
     for (let i = 0; i < questions.length; i++) {
 
-        quizPage.innerHTML += ` <div class="question-box">
+        $quizPage.innerHTML += ` <div class="question-box">
                                     <div class="question"
                                     style="background-color: ${questions[i].color} ">
                                         <h2>${questions[i].title}</h2>
@@ -131,30 +129,22 @@ function renderIndividualQuizz() {
         };
     };
 
-    let levels = object.levels;
-
-    for (let i = 0; i< levels.length; i++) {
-
-        quizPage.innerHTML += `<div class="question-box hidden" id="nivel${i}">
-                                <div class="question"
-                                style="background-color: #EC362D ">
-                                    <h2>${levels[i].title}</h2>
-                                </div>
-                                <div class="nivels-container">
-                                    <img src="${levels[i].image}">
-                                    <span>${levels[i].text}</span>
-                                </div>
-                            </div>`;
-
-    }
-
 }
 
 // Comportamento de respostas
 
+let rightAnswers = 0;
+let checkAnswer = 0;
+
 function selectedAnswer(answer) {
 
+    checkAnswer ++;
+
     answer.classList.add('selected');
+
+    if (answer.classList.contains('true')){
+        rightAnswers++;
+    }
 
     // add efeito esbranquiçado
     let alternatives = answer.parentNode.querySelectorAll('.alternative');
@@ -171,15 +161,59 @@ function selectedAnswer(answer) {
     answer.classList.remove('non-selected');
 
     // scrollar para a próxima pergunta - NÃO TÁ FUNCIONANDO ***
-    let currentQuestion = answer.parentNode;
+    /*let currentQuestion = answer.parentNode;
     let nextQuestion = currentQuestion.parentNode.nextSibling;
     setTimeout( () => {
         nextQuestion.scrollIntoView({
             behavior: 'smooth'
           });
-    },2000);
+    },2000);*/
+
+    if (checkAnswer === nQuestions) {
+        quizResults();
+    }
 }
 
+// Resultado do Quiz
+
+function quizResults() {
+
+    let result = Math.round((rightAnswers/nQuestions)*100);
+    console.log(result);
+
+    let levels = object.levels;
+
+    for (let i = 0; i< levels.length; i++) {
+
+        if ( result >= levels[i].minValue && result < levels[i+1].minValue ) {
+
+            $quizPage.innerHTML += `<div class="question-box">
+                                <div class="question"
+                                style="background-color: #EC362D ">
+                                    <h2>${levels[i].title}</h2>
+                                </div>
+                                <div class="levels-container">
+                                    <img src="${levels[i].image}">
+                                    <span>${levels[i].text}</span>
+                                </div>
+                            </div>`;
+        }
+
+        if ( result >= levels[levels.length-1].minValue) {
+
+            $quizPage.innerHTML += `<div class="question-box">
+                                        <div class="question"
+                                        style="background-color: #EC362D ">
+                                            <h2>${levels[levels.length-1].title}</h2>
+                                        </div>
+                                        <div class="levels-container">
+                                            <img src="${levels[levels.length-1].image}">
+                                            <span>${levels[levels.length-1].text}</span>
+                                        </div>
+                                    </div>`;
+        }     
+    }  
+}
 
 // Passo 7 - Tela de criação: Informações básicas do quiz
 
