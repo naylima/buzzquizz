@@ -1,4 +1,5 @@
 let quizz;
+let nQuestions = null;
 let object = {
     title: '',
     image: '',
@@ -137,35 +138,122 @@ function renderIndividualQuizz() {
 function quizBasicInfo() {
 
     const $container = document.querySelector('.container');
+    const $info = document.querySelector('.basic-info');
 
     $container.classList.add('hidden');
     $info.classList.remove('hidden');
 }
 
-let nLevelsOK;
-
-function validations() {
+// Passo 8 - Validando as informações fornecidas pelo usuário na tela 3.1
+function validationsInfo() {
 
     let quizTitle = document.querySelector('input:first-child').value;
     let URLimg = document.querySelector('input:nth-child(2)').value;
-    let nQuestions = document.querySelector('input:nth-child(3)').value;
+    nQuestions = document.querySelector('input:nth-child(3)').value;
     let nLevels = document.querySelector('input:nth-child(4)').value;
 
     let quiztitleOK = (quizTitle.length > 19 && quizTitle.length < 66);
-    let nQuestionsOK = (nQuestions > 4);
-    nLevelsOK = (nLevels > 1);
-    let URLimgOK = ((URLimg) => {
-        if (URLimg != null && URLimg != '') {
-            let regex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
-            return regex.test(str);
-        } else {
-            return false;
-        };
-    });
+    let nQuestionsOK = (nQuestions > 2);
+    let nLevelsOK = (nLevels > 1);
+    let URLimgOK = URLvalidation(URLimg);
 
     if (quiztitleOK && nQuestionsOK && nLevelsOK && URLimgOK) {
         title = quizTitle;
         image = URLimg;
+        quizQuestions();
+    } else {
+        alert("Verifique as consições necessárias para criar o Quizz e tente novamente (:");
+    }
+}
+
+// Passo 9 - Tela de criação: Perguntas do quiz (renderização)
+
+function quizQuestions() {
+
+    const $info = document.querySelector('.basic-info');
+    const $quizzQuestions = document.querySelector('.quiz-questions');
+
+    $info.classList.add('hidden');
+    $quizzQuestions.classList.remove('hidden');
+
+    for(let i = 1; i <= nQuestions; i++) {
+
+        $quizzQuestions.innerHTML += `
+        <form class="questions-container">
+            <label for="firstquestion">Pergunta ${i} <ion-icon name="create-sharp" onclick="toggleSwap(${i})"></ion-icon></label>
+            <div class="main" id="template${i}" >
+                <div> 
+                    <input type="text" placeholder="Texto da pergunta" id="textquestion${i}">
+                    <input type="text" placeholder="Cor de fundo da pergunta" id="backgroundcolor-${i}">
+                </div>
+                <div>
+                    <label for="correctanswer">Resposta correta</label>
+                    <input type="text" placeholder="Resposta correta" id="correctanswer-${i}">
+                    <input type="url" placeholder="URL da imagem" id="correctURL-${i}">
+                </div>
+                <div>
+                    <label for="wronganswer">Respostas incorretas</label>
+                    <input type="text" placeholder="Resposta incorreta 1" id="wronganswer-1-${i}">
+                    <input type="url" placeholder="URL da imagem 1" id="wrongURL-1-${i}">
+                    <input type="text" placeholder="Resposta incorreta 2" id="wronganswer-2-${i}">
+                    <input type="url" placeholder="URL da imagem 2" id="wrongURL-2-${i}">
+                    <input type="text" placeholder="Resposta incorreta 3" id="wronganswer-3-${i}">
+                    <input type="url" placeholder="URL da imagem 3" id="wrongURL-3-${i}">
+                </div>
+            </div>
+        </form>`;
+    }
+
+    $quizzQuestions.innerHTML +=    `<button id="btn-submit" onclick="validationsQuest()">
+                                        Prosseguir para criar níveis
+                                    </button>`
+}
+
+function toggleSwap(i) {
+    document.getElementById(`template${i}`).classList.toggle('swap');
+}
+
+// Passo 10 - Validando as informações fornecidas pelo usuário na tela 3.2
+
+function validationsQuest() {
+
+    let validate = true;
+    let currentValidate;
+
+    for(let i = 1; i <= nQuestions; i++) {
+
+        let textQuest = document.getElementById(`textquestion${i}`).value;
+        let colorQuest  = document.getElementById(`backgroundcolor-${i}`).value;
+        let correctAnswer = document.getElementById(`correctanswer-${i}`).value;
+        let wrongAnswer1 = document.getElementById(`wronganswer-1-${i}`).value;
+        let wrongAnswer2 = document.getElementById(`wronganswer-2-${i}`).value;
+        let wrongAnswer3 = document.getElementById(`wronganswer-3-${i}`).value;
+        let URL1 = document.getElementById(`wrongURL-1-${i}`).value;
+        let URL2 = document.getElementById(`wrongURL-2-${i}`).value;
+        let URL3 = document.getElementById(`wrongURL-3-${i}`).value;
+
+        let textQuestOK = (textQuest.length > 19 && textQuest.length !== "");
+        let colorQuestOK = colorValidation(colorQuest);
+        let correctAnswerOK = (correctAnswer !== "");
+        let wrongAnswerOK = (wrongAnswer1 !== "" || wrongAnswer2 !== "" || wrongAnswer3 !== "");
+        let URL1OK = URLvalidation(URL1);
+        let URL2OK = URLvalidation(URL2);
+        let URL3OK = URLvalidation(URL3);
+        let URLOK = (URL1OK && URL2OK && URL3OK);
+        
+        if (textQuestOK && colorQuestOK && correctAnswerOK && URLOK && wrongAnswerOK && URLOK){
+            
+            currentValidate = true;
+
+        }else {
+
+            currentValidate = false;
+        }
+
+        validate = (validate && currentValidate);
+    }
+
+    if (validate) {
         quizzLevel();
     } else {
         alert("Verifique as condições necessárias para criar o Quizz e tente novamente (:");
@@ -249,6 +337,12 @@ function validationLevel() {
     return valid;
 }
 
+function quizzLevel() {
+
+    $quizzQuestions.classList.add('hidden');
+    $quizzLevel.classList.remove('hidden');
+
+}
 
 function quizzReady() {
 
@@ -294,6 +388,23 @@ function quizzHome() {
 
 }
 
+/* Validações */
+
+/* Validações da URL de imagens */
+function URLvalidation(str){
+    if (str != null && str != '') {
+        let regex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
+        return regex.test(str);
+    }else{
+        return false;
+    }
+};
+
+/* Validação de cor */
+function colorValidation(str){
+    const regex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/i;
+        return regex.test(str);
+};
 //Habilita botão do form da tela 3.3
 
 function attachEvent() {
