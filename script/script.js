@@ -95,7 +95,8 @@ function renderIndividualQuizz() {
     $quizPage.innerHTML += `<div class="quiz-head" 
                             style="background: linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), 
                             url(${object.image}) no-repeat; 
-                            background-size: cover">
+                            background-size: cover;
+                            background-position-y: -100px;">
                             <h1>${object.title}</h1>
                             </div>`;
 
@@ -174,7 +175,7 @@ function selectedAnswer(answer) {
     }
 }
 
-// Resultado do Quiz
+// Resultado do Quiz - Renderização dos Níveis 
 
 function quizResults() {
 
@@ -182,37 +183,99 @@ function quizResults() {
     console.log(result);
 
     let levels = object.levels;
+    levels.sort(function(a, b){
+        return (a.minValue > b.minValue) ? 1 : ((b.minValue > a.minValue) ? -1 : 0);
+    });
 
     for (let i = 0; i< levels.length; i++) {
 
-        if ( result >= levels[i].minValue && result < levels[i+1].minValue ) {
+        if (levels[i].minValue !== levels[levels.length-1].minValue) {
 
-            $quizPage.innerHTML += `<div class="question-box">
-                                <div class="question"
-                                style="background-color: #EC362D ">
-                                    <h2>${levels[i].title}</h2>
-                                </div>
-                                <div class="levels-container">
-                                    <img src="${levels[i].image}">
-                                    <span>${levels[i].text}</span>
-                                </div>
-                            </div>`;
-        }
+            if ( result >= levels[i].minValue && result < levels[i+1].minValue) {
 
-        if ( result >= levels[levels.length-1].minValue) {
-
-            $quizPage.innerHTML += `<div class="question-box">
-                                        <div class="question"
-                                        style="background-color: #EC362D ">
-                                            <h2>${levels[levels.length-1].title}</h2>
+                $quizPage.innerHTML += `<div class="question-box level">
+                                            <div class="question"
+                                            style="background-color: #EC362D ">
+                                                <h2>${levels[i].title}</h2>
+                                            </div>
+                                            <div class="levels-container">
+                                                <img src="${levels[i].image}">
+                                                <span>${levels[i].text}</span>
+                                            </div>
                                         </div>
-                                        <div class="levels-container">
-                                            <img src="${levels[levels.length-1].image}">
-                                            <span>${levels[levels.length-1].text}</span>
+                                        <button id="btn-submit" onClick="reloadQuiz()">
+                                            Reiniciar Quizz
+                                        </button>
+                                        <p class="backToHome" onClick="backToHome()">Voltar pra home</p>
+                                                                     `;
+            }
+        }        
+
+        if (levels[i].minValue == levels[levels.length-1].minValue) {
+        
+            if ( result >= levels[levels.length-1].minValue ) {
+                $quizPage.innerHTML += `<div class="question-box level">
+                                            <div class="question"
+                                            style="background-color: #EC362D ">
+                                                <h2>${levels[levels.length-1].title}</h2>
+                                            </div>
+                                            <div class="levels-container">
+                                                <img src="${levels[levels.length-1].image}">
+                                                <span>${levels[levels.length-1].text}</span>
+                                            </div>
                                         </div>
-                                    </div>`;
+                                        <button id="btn-submit" onClick="reloadQuiz()">
+                                            Reiniciar Quizz
+                                        </button>
+                                        <p class="backToHome" onClick="backToHome()">Voltar pra home</p>
+                                                                `;
+            }           
         }     
-    }  
+    } 
+
+    // scrollando para o resultado do quiz
+    let levelResult = document.querySelector('.level');
+    setTimeout( () => {
+        levelResult.scrollIntoView({
+            behavior: 'smooth'
+          });   
+    },2000);
+}
+
+// Navegação pós Quiz
+
+function reloadQuiz() {
+    
+    const alternative = document.querySelectorAll('.alternative');
+
+    for (let i = 0; i < alternative.length; i++) {
+
+    alternative[i].classList.remove('non-selected');
+    alternative[i].classList.remove('correct');
+    alternative[i].classList.remove('wrong');
+    }
+    
+    let quizlevel = document.querySelector('.level');
+    let button = document.getElementById('btn-submit');
+    let location = document.querySelector('.backToHome');
+
+    quizlevel.remove();
+    button.remove();
+    location.remove();
+
+    rightAnswers = 0;
+    checkAnswer = 0;
+
+    window.scrollTo(0,0);
+}
+
+function backToHome() {
+
+    window.location.reload();
+    window.scrollTo(0,0);
+
+    $quizPage.innerHTML = '';
+    nQuestions = 0;
 }
 
 // Passo 7 - Tela de criação: Informações básicas do quiz

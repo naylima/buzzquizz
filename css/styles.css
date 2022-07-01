@@ -213,7 +213,7 @@ section p {
     width: 340px;
     height: 250px;
     background-position: center;
-    background-size: cover;
+    object-fit: cover;
     cursor: pointer;
 }
 
@@ -222,7 +222,7 @@ section p {
     font-weight: bold;
     font-size: 15px;
     margin-top: 5px; 
-    word-break: break-all;   
+    word-wrap: break-word;  
 }
 
 .non-selected {
@@ -255,6 +255,20 @@ section p {
     font-size: 18px;
     word-wrap: break-word;
     color: #484848;
+}
+
+.quiz-page #btn-submit {
+    margin-top: 50px;
+    width: 262px;
+}
+
+.backToHome {
+    font-size: 21px;
+    font-weight: 400;
+    font-family: 'Roboto';
+    margin-top: 16px;    
+    color: #818181; 
+    cursor: pointer; 
 }
 
 /* Tela 3.1 e 3.2- Informações básicas do Quiz e perguntas do Quiz*/
@@ -340,6 +354,7 @@ section p {
 
 .questions-container ion-icon {
     cursor: pointer;
+    opacity: 1;
 }
 
 .swap {
