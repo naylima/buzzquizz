@@ -124,6 +124,7 @@ section p {
     z-index: 1;
     padding: 16px;
     font-family: 'Roboto', sans-serif;
+    word-break: break-all;
 }
 
 .quizz img {
@@ -323,7 +324,6 @@ input:placeholder-shown {
 }
 
 .title-page {
-    width: 100%;
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
     font-size: 24px;
@@ -337,6 +337,7 @@ label {
     font-size: 12px;
     font-family: 'Roboto', sans-serif;
     color: #b9b9b9;
+    text-align: start;
 }
 
 h2 {
@@ -377,8 +378,7 @@ ion-icon {
     border-radius: 15px;
 }
 
-.quizz-sucess,
-.title-page {
+.quizz-sucess {
     margin-inline: calc(50% - 80px);
 }
 
