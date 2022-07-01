@@ -8,7 +8,7 @@ let object = {
 }
 
 const $info = document.querySelector('.basic-info');
-const $quizzLevelBox = document.querySelector('.quizz-level .title-page');
+const $quizzLevelBox = document.querySelector('.quizz-level .title-level');
 const $quizzLevel = document.querySelector('.quizz-level');
 const $quizzSuccess = document.querySelector('.quizz-success');
 const $initialScreen = document.querySelector('.initial-screen');
@@ -289,7 +289,9 @@ function validationsQuest() {
         alert("Verifique as condições necessárias para criar o Quizz e tente novamente (:");
     }
 
-} 
+}
+
+let numberLevels;
 
 function quizzLevel() {
 
@@ -298,7 +300,7 @@ function quizzLevel() {
     for (let i = 0; i < numberLevels; i++) {
 
         $info.classList.add('hidden');
-        
+
         $quizzLevel.classList.remove('hidden');
 
         let template = /* html */`
@@ -311,8 +313,8 @@ function quizzLevel() {
                         <input data-title type="text" minlength="10" required placeholder="Título do nível">
                         <label>Mínimo 10 caracteres</label>
                     </div>
-                    <div>
-                        <input data-number type="number" min="0" max="100" required placeholder="% de acerto mínimo">
+                    <div >
+                        <input value="0" data-number type="number" min="0" max="100" required placeholder="% de acerto mínimo">
                         <label>1 a 100</label>
                     </div>
                     <div>
@@ -328,28 +330,40 @@ function quizzLevel() {
         `;
 
         $quizzLevelBox.innerHTML += template;
+
     }
+
+    attachEvent();
 }
+
 
 function validationLevel() {
 
     let valid = false;
     let regex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
 
-    const $inputTitle = document.querySelector('.quizz-form [data-title]');
-    const $inputNumber = document.querySelector('.quizz-form [data-number]');
-    const $inputUrl = document.querySelector('.quizz-form [data-url]');
-    const $inputDescription = document.querySelector('.quizz-form [data-description]');
+    const $inputs = document.querySelectorAll('.quizz-form input');
 
-    if ($inputTitle.value.length >= 10 &&
-        Number($inputNumber.value) <= 100 &&
-        Number($inputNumber.value) > 0 &&
-        regex.test($inputUrl.value) === true &&
-        $inputDescription.value.length >= 30) {
+    for (input of $inputs) {
+        if (input.hasAttribute('data-title') ||
+            input.hasAttribute('data-number') ||
+            input.hasAttribute('data-url') ||
+            input.hasAttribute('data-description')) {
 
-        valid = true;
+            if (input.value.length >= 10 ||
+                Number(input.value) <= 100 && Number(input.value) > 0 ||
+                regex.test(input.value) === true ||
+                input.value.length >= 30) {
+
+                valid = true;
+
+            } else {
+                valid = false;
+                break;
+            }
+        }
     }
-
+    
     return valid;
 }
 
@@ -423,18 +437,22 @@ function colorValidation(str){
 };
 
 //Habilita botão do form da tela 3.3
-const $button = document.querySelector('.quizz-button');
 
-document.querySelectorAll('.quizz-form input').forEach(input => {
-
-    input.addEventListener('input', () => {
-
-        if (validationLevel() === true) {
-            $button.classList.remove('disabled');
-
-        } else {
-            $button.classList.add('disabled');
-        }
+function attachEvent() {
+    
+    const $button = document.querySelector('.quizz-button');
+    
+    document.querySelectorAll('.quizz-form input').forEach(input => {
+    
+        input.addEventListener('input', () => {
+    
+            if (validationLevel() === true) {
+                $button.classList.remove('disabled');
+    
+            } else {
+                $button.classList.add('disabled');
+            }
+        })
     })
-})
 
+}    
