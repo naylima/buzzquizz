@@ -176,7 +176,6 @@ section p {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: center;
     background-color: #FFF;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
 }
@@ -204,11 +203,13 @@ section p {
     flex-wrap: wrap;
 }
 
-.alternatives > div {
+.alternatives > div,
+.nivels-container {
     margin-top: 25px;
 }
 
-.alternatives img {
+.alternatives img,
+.nivels-container img {
     width: 340px;
     height: 250px;
     background-position: center;
@@ -236,6 +237,24 @@ section p {
 
 .wrong p {
     color: red;
+}
+
+.nivels-container {
+    display: flex;
+}
+
+.nivels-container img {
+    width: 50%;
+}
+
+.nivels-container span {
+    width: 50%;
+    margin-left: 25px;
+    font-family: Roboto;
+    font-weight: bold;
+    font-size: 18px;
+    word-wrap: break-word;
+    color: #484848;
 }
 
 /* Tela 3.1 e 3.2- Informações básicas do Quiz e perguntas do Quiz*/

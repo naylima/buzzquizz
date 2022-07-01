@@ -9,7 +9,7 @@ let object = {
 
 const $info = document.querySelector('.basic-info');
 const $quizzLevelBox = document.querySelector('.quizz-level .title-level');
-const $quizzLevel = document.querySelector('.quizz-level');
+const $quizzLevel = document.querySelector ('.quizz-level');
 const $quizzSuccess = document.querySelector('.quizz-success');
 const $initialScreen = document.querySelector('.initial-screen');
 
@@ -130,6 +130,23 @@ function renderIndividualQuizz() {
                                             `;
         };
     };
+
+    let levels = object.levels;
+
+    for (let i = 0; i< levels.length; i++) {
+
+        quizPage.innerHTML += `<div class="question-box hidden" id="nivel${i}">
+                                <div class="question"
+                                style="background-color: #EC362D ">
+                                    <h2>${levels[i].title}</h2>
+                                </div>
+                                <div class="nivels-container">
+                                    <img src="${levels[i].image}">
+                                    <span>${levels[i].text}</span>
+                                </div>
+                            </div>`;
+
+    }
 
 }
 
