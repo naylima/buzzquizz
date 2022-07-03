@@ -447,9 +447,10 @@ function validateQuestions() {
 
         }
     }
-    
+
     if (validate) {
         quizzLevel();
+        window.scrollTo(0, 0);
         addAnswersToQuestions();
     } else {
         alert("Verifique as condições necessárias para criar o Quizz e tente novamente (:");
@@ -566,7 +567,7 @@ function addLevels() {
 function quizzLevel() {
     const levels = document.querySelector('[data-level]').value;  // Número de níveis a ser criado
 
-    for (let i = 0; i < levels; i++) {
+    for (let i = 1; i <= levels; i++) {
 
         $quizzQuestions.classList.add('hidden');
         $quizzLevel.classList.remove('hidden');
@@ -575,7 +576,7 @@ function quizzLevel() {
         <div class="quizz-form">
             <form>
                 <div onclick="toggleSwap(${i})"> 
-                    <h2>Nível ${[i + 1]} <span>
+                    <h2>Nível ${i} <span>
                             <ion-icon name="create-sharp" ></ion-icon>
                         </span></h2>
                 </div>
@@ -616,6 +617,7 @@ function validationLevel() {
     let regex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
 
     const $inputs = document.querySelectorAll('.quizz-form input');
+    let array = [];
 
     for (input of $inputs) {
         if (input.hasAttribute('data-title') ||
@@ -630,6 +632,10 @@ function validationLevel() {
 
                 valid = true;
 
+                if (input.hasAttribute('data-number')) {
+                    array.push(input.value);
+                }
+
             } else {
                 valid = false;
                 break;
@@ -637,7 +643,11 @@ function validationLevel() {
         }
     }
 
-    return valid;
+    if (array.find(e => e == 0)) {
+        valid = true;
+    } else {
+        valid = false;
+    }
 }
 
 function quizzReady() {
