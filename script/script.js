@@ -1,5 +1,6 @@
 let quizz;
 let nQuestions = null;
+let nLevels;
 let object = {
     title: '',
     image: '',
@@ -70,7 +71,6 @@ function startQuizz(selectedQuizz) {
     $container.classList.add('hidden');
     $quizPage.classList.remove('hidden');
 
-    console.log(selectedQuizz.id);
 
     searchIndividualQuizz(selectedQuizz.id);
 }
@@ -320,6 +320,7 @@ function quizBasicInfo() {
 
     $container.classList.add('hidden');
     $info.classList.remove('hidden');
+
 }
 
 // Passo 8 - Validando as informações fornecidas pelo usuário na tela 3.1
@@ -328,7 +329,7 @@ function validationsInfo() {
     let quizTitle = document.querySelector('input:first-child').value;
     let URLimg = document.querySelector('input:nth-child(2)').value;
     nQuestions = document.querySelector('input:nth-child(3)').value;
-    let nLevels = document.querySelector('input:nth-child(4)').value;
+    nLevels = document.querySelector('input:nth-child(4)').value;
 
     let quiztitleOK = (quizTitle.length > 19 && quizTitle.length < 66);
     let nQuestionsOK = (nQuestions > 2);
@@ -395,8 +396,6 @@ function toggleSwap(i) {
     document.getElementById(`template${i}`).classList.toggle('swap');
 }
 
-
-
 // Passo 10 - Validando as informações fornecidas pelo usuário na tela 3.2
 
 function validateQuestions() {
@@ -406,57 +405,53 @@ function validateQuestions() {
 
     addQuestions();
 
-    let textQuest = document.getElementById(`textquestion${i}`).value;
-    let correctAnswer = document.getElementById(`correctanswer-${i}`).value;
-    let wrongAnswer1 = document.getElementById(`wronganswer-1-${i}`).value;
-    let wrongAnswer2 = document.getElementById(`wronganswer-2-${i}`).value;
-    let wrongAnswer3 = document.getElementById(`wronganswer-3-${i}`).value;
-    let URL1 = document.getElementById(`wrongURL-1-${i}`).value;
-    let URL2 = document.getElementById(`wrongURL-2-${i}`).value;
-    let URL3 = document.getElementById(`wrongURL-3-${i}`).value;
+    console.log('object: ', object);
 
-    let textQuestOK = (textQuest.length > 19 && textQuest.length !== "");
-    let correctAnswerOK = (correctAnswer !== "");
-    let wrongAnswerOK = (wrongAnswer1 !== "" || wrongAnswer2 !== "" || wrongAnswer3 !== "");
-    let URL1OK = URLvalidation(URL1);
-    let URL2OK = URLvalidation(URL2);
-    let URL3OK = URLvalidation(URL3);
-    let URLOK = (URL1OK && URL2OK && URL3OK);
+    for (let i = 0; i < nQuestions; i++) {
 
-    if (textQuestOK && correctAnswerOK && URLOK && wrongAnswerOK && URLOK) {
+        const currentQuestion = object.questions[i];
 
-        console.log('object: ', object);
+        let textQuestion = currentQuestion.title;
+        let colorQuestion = currentQuestion.color;
 
-        for (let i = 0; i < nQuestions; i++) {
+        let textQuestionOK = (textQuestion.length > 19 && textQuestion !== '');
+        let colorQuestionOK = colorValidation(colorQuestion);
 
-            const currentQuestion = object.questions[i];
 
-            let textQuestion = currentQuestion.title;
-            let colorQuestion = currentQuestion.color;
+        if (textQuestionOK && colorQuestionOK) {
 
-            let textQuestionOK = (textQuestion.length > 19 && textQuestion !== "");
-            let colorQuestionOK = colorValidation(colorQuestion);
+            console.log('object: ', object);
 
-            console.log({ textQuestionOK, colorQuestionOK });
+            for (let i = 0; i < nQuestions; i++) {
 
-            if (textQuestionOK && colorQuestionOK) {
+                const currentQuestion = object.questions[i];
 
-                currentValidate = true;
+                let textQuestion = currentQuestion.title;
+                let colorQuestion = currentQuestion.color;
 
-            } else {
+                let textQuestionOK = (textQuestion.length > 19 && textQuestion !== '');
+                let colorQuestionOK = colorValidation(colorQuestion);
 
-                currentValidate = false;
+
+                if (textQuestionOK && colorQuestionOK) {
+
+                    currentValidate = true;
+
+                } else {
+
+                    currentValidate = false;
+                }
+
+                validate = (validate && currentValidate);
             }
 
-            validate = (validate && currentValidate);
-        }
+            if (validate) {
+                validateAnswers();
+            } else {
+                alert("Verifique as condições necessárias para criar o Quizz e tente novamente (:");
+            }
 
-        if (validate) {
-            validateAnswers();
-        } else {
-            alert("Verifique as condições necessárias para criar o Quizz e tente novamente (:");
         }
-
     }
 }
 
@@ -490,8 +485,6 @@ function validateAnswers() {
             wrongAnswersOK = validWrongAnswer;
         }
     }
-
-    console.log({ correctAnswerOK, wrongAnswersOK, URLOK });
 
 
     if (correctAnswerOK && URLOK && wrongAnswersOK) {
@@ -548,57 +541,66 @@ function addAnswersToQuestions() {
             })
         }
 
-        console.log(object.questions);
-
         object.questions[i - 1].answers = tempAnswers;
 
     }
 
 }
 
-let numberLevels;
+function addLevels() {
+    let tempLevels = [];
+
+    for (let i = 1; i <= nLevels; i++) {
+        let level = {}
+
+        level.title = document.querySelector('[data-title]')
+        level.image = document.querySelector('[data-image]'),
+        level.text = document.querySelector('[data-description]'),
+        level.minValue = document.querySelector('[data-number]')
+
+        tempLevels.push(level);
+    }
+
+    object.levels = tempLevels;
+}
 
 function quizzLevel() {
+    const levels = document.querySelector('[data-level]').value;  // Número de níveis a ser criado
 
-    /* $info.classList.add('hidden');
-    $quizzQuestions.classList.remove('hidden'); */
-
-    numberLevels = document.querySelector('[data-level]').value;
-
-    for (let i = 0; i < numberLevels; i++) {
+    for (let i = 0; i < levels; i++) {
 
         $quizzQuestions.classList.add('hidden');
         $quizzLevel.classList.remove('hidden');
 
         let template = /* html */`
         <div class="quizz-form">
-        <form>
-            <div onclick="toggleSwap(${i})"> 
-                <h2>Nível ${[i + 1]} <span>
-                        <ion-icon name="create-sharp" ></ion-icon>
-                    </span></h2>
-            </div>
-            <div class="form" id="template${i}">
-                <div>
-                    <input data-title type="text" minlength="10" required placeholder="Título do nível">
-                    <label>Mínimo 10 caracteres</label>
+            <form>
+                <div onclick="toggleSwap(${i})"> 
+                    <h2>Nível ${[i + 1]} <span>
+                            <ion-icon name="create-sharp" ></ion-icon>
+                        </span></h2>
                 </div>
-                <div>
-                    <input value="0" data-number type="number" min="0" max="100" required
-                        placeholder="% de acerto mínimo">
-                    <label>1 a 100</label>
+                <div class="form" id="template${i}">
+                    <div>
+                        <input data-title type="text" minlength="10" required placeholder="Título do nível">
+                        <label>Mínimo 10 caracteres</label>
+                    </div>
+                    <div>
+                        <input value="0" data-number type="number" min="0" max="100" required
+                            placeholder="% de acerto mínimo">
+                        <label>1 a 100</label>
+                    </div>
+                    <div>
+                        <input data-url type="url" required placeholder="URL da imagem">
+                        <label>Ex.: https://www.google.com/</label>
+                    </div>
+                    <div>
+                        <input data-description type="text" required placeholder="Descrição do nível">
+                        <label>Mínimo 30 caracteres</label>
+                    </div>
                 </div>
-                <div>
-                    <input data-url type="url" required placeholder="URL da imagem">
-                    <label>Ex.: https://www.google.com/</label>
-                </div>
-                <div>
-                    <input data-description type="text" required placeholder="Descrição do nível">
-                    <label>Mínimo 30 caracteres</label>
-                </div>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
         `;
 
         $quizzLevelBox.innerHTML += template;
@@ -640,6 +642,8 @@ function validationLevel() {
 }
 
 function quizzReady() {
+    
+    addLevels();
 
     if (validationLevel() === true) {
 
