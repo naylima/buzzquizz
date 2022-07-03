@@ -241,17 +241,11 @@ function quizResults() {
     let levelResult = document.querySelector('.level');
     setTimeout(() => {
         levelResult.scrollIntoView({
-<<<<<<< HEAD
             behavior: 'smooth', 
             block: "center", 
             inline: "center"
           });   
     },2000);
-=======
-            behavior: 'smooth'
-        });
-    }, 2000);
->>>>>>> 75895db778a14d2cff3a7d1cdb559e4b6fa4f474
 }
 
 // Navegação pós Quiz
@@ -412,7 +406,6 @@ function validateQuestions() {
 
     addQuestions();
 
-<<<<<<< HEAD
         let textQuest = document.getElementById(`textquestion${i}`).value;
         let correctAnswer = document.getElementById(`correctanswer-${i}`).value;
         let wrongAnswer1 = document.getElementById(`wronganswer-1-${i}`).value;
@@ -432,7 +425,6 @@ function validateQuestions() {
         
         if (textQuestOK && correctAnswerOK && URLOK && wrongAnswerOK && URLOK){
             
-=======
     console.log('object: ', object);
 
     for (let i = 0; i < nQuestions; i++) {
@@ -449,7 +441,6 @@ function validateQuestions() {
 
         if (textQuestionOK && colorQuestionOK) {
 
->>>>>>> 75895db778a14d2cff3a7d1cdb559e4b6fa4f474
             currentValidate = true;
 
         } else {
