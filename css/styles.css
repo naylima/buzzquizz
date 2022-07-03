@@ -439,10 +439,6 @@ h2 {
     justify-content: space-between;
 }
 
-ion-icon {
-    opacity: 0;
-}
-
 /* Tela 3.4 - Página de um quizz (perguntas) */
 .quizz-button {
     width: 220px;

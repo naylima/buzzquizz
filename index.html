@@ -19,7 +19,7 @@
         <h1 class="title">BuzzQuizz</h1>
     </div>
 
-    <div class="container initial-screen">
+    <div class="container initial-screen hidden">
         <div class="box-user">
             <p>Você não criou nenhum <br> quizz ainda :(</p>
             <button onclick="quizBasicInfo()">Criar Quizz</button>
@@ -40,7 +40,7 @@
 
     <!-- Tela 3.1 - Informações básicas do quizz -->
 
-    <section class="basic-info hidden">
+    <section class="basic-info ">
         <h1>Comece pelo Começo</h1>
         <form class="form-container">
             <input type="text" placeholder="Título do seu quizz">
@@ -54,9 +54,9 @@
     <!-- Tela 3.2 - Prguntas do quizz-->
 
     <section class="quiz-questions hidden">
-        
+
         <h1>Crie suas perguntas</h1>
-       
+
     </section>
 
     <!-- Tela 3.3 - Escolher nível de um quizz -->
@@ -64,8 +64,9 @@
         <div>
             <div class="title-level">
                 <p class="title-page">Agora, decida os níveis!</p>
+                
             </div>
-            
+
             <button class="quizz-button disabled" type="submit" onclick="quizzReady()">Finalizar Quizz</button>
         </div>
     </div>

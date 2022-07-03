@@ -8,8 +8,9 @@ let object = {
 }
 
 const $info = document.querySelector('.basic-info');
+const $quizzQuestions = document.querySelector('.quiz-questions');
 const $quizzLevelBox = document.querySelector('.quizz-level .title-level');
-const $quizzLevel = document.querySelector ('.quizz-level');
+const $quizzLevel = document.querySelector('.quizz-level');
 const $quizzSuccess = document.querySelector('.quizz-success');
 const $initialScreen = document.querySelector('.initial-screen');
 
@@ -105,7 +106,8 @@ function renderIndividualQuizz() {
 
     for (let i = 0; i < questions.length; i++) {
 
-        $quizPage.innerHTML += ` <div class="question-box">
+        $quizPage.innerHTML += /* html */` 
+                                <div class="question-box">
                                     <div class="question"
                                     style="background-color: ${questions[i].color} ">
                                         <h2>${questions[i].title}</h2>
@@ -122,7 +124,7 @@ function renderIndividualQuizz() {
 
             const questionBox = document.querySelectorAll(".alternatives");
             questionBox[questionBox.length - 1].innerHTML += `
-                                    <div class="alternative ${answers[j].isCorrectAnswer}" onClick="selectedAnswer(this)">
+                                    <div class="alternative ${answers[j].isCorrectAnswer}" onClick="selectedAnswer(this)" >
                                         <img src="${answers[j].image}">
                                         <p>${answers[j].text}</p>
                                     </div>
@@ -139,11 +141,11 @@ let checkAnswer = 0;
 
 function selectedAnswer(answer) {
 
-    checkAnswer ++;
+    checkAnswer++;
 
     answer.classList.add('selected');
 
-    if (answer.classList.contains('true')){
+    if (answer.classList.contains('true')) {
         rightAnswers++;
     }
 
@@ -151,12 +153,14 @@ function selectedAnswer(answer) {
     let alternatives = answer.parentNode.querySelectorAll('.alternative');
 
     for (let i = 0; i < alternatives.length; i++) {
-        alternatives[i].classList.add('non-selected'); 
+        alternatives[i].classList.add('non-selected');
         if (alternatives[i].classList.contains('true')) {
             alternatives[i].classList.add('correct');
+
         }
         if (alternatives[i].classList.contains('false')) {
             alternatives[i].classList.add('wrong');
+
         }
     }
     answer.classList.remove('non-selected');
@@ -179,19 +183,19 @@ function selectedAnswer(answer) {
 
 function quizResults() {
 
-    let result = Math.round((rightAnswers/nQuestions)*100);
+    let result = Math.round((rightAnswers / nQuestions) * 100);
     console.log(result);
 
     let levels = object.levels;
-    levels.sort(function(a, b){
+    levels.sort(function (a, b) {
         return (a.minValue > b.minValue) ? 1 : ((b.minValue > a.minValue) ? -1 : 0);
     });
 
-    for (let i = 0; i< levels.length; i++) {
+    for (let i = 0; i < levels.length; i++) {
 
-        if (levels[i].minValue !== levels[levels.length-1].minValue) {
+        if (levels[i].minValue !== levels[levels.length - 1].minValue) {
 
-            if ( result >= levels[i].minValue && result < levels[i+1].minValue) {
+            if (result >= levels[i].minValue && result < levels[i + 1].minValue) {
 
                 $quizPage.innerHTML += `<div class="question-box level">
                                             <div class="question"
@@ -209,19 +213,19 @@ function quizResults() {
                                         <p class="backToHome" onClick="backToHome()">Voltar pra home</p>
                                                                      `;
             }
-        }        
+        }
 
-        if (levels[i].minValue == levels[levels.length-1].minValue) {
-        
-            if ( result >= levels[levels.length-1].minValue ) {
+        if (levels[i].minValue == levels[levels.length - 1].minValue) {
+
+            if (result >= levels[levels.length - 1].minValue) {
                 $quizPage.innerHTML += `<div class="question-box level">
                                             <div class="question"
                                             style="background-color: #EC362D ">
-                                                <h2>${levels[levels.length-1].title}</h2>
+                                                <h2>${levels[levels.length - 1].title}</h2>
                                             </div>
                                             <div class="levels-container">
-                                                <img src="${levels[levels.length-1].image}">
-                                                <span>${levels[levels.length-1].text}</span>
+                                                <img src="${levels[levels.length - 1].image}">
+                                                <span>${levels[levels.length - 1].text}</span>
                                             </div>
                                         </div>
                                         <button id="btn-submit" onClick="reloadQuiz()">
@@ -229,34 +233,40 @@ function quizResults() {
                                         </button>
                                         <p class="backToHome" onClick="backToHome()">Voltar pra home</p>
                                                                 `;
-            }           
-        }     
-    } 
+            }
+        }
+    }
 
     // scrollando para o resultado do quiz
     let levelResult = document.querySelector('.level');
-    setTimeout( () => {
+    setTimeout(() => {
         levelResult.scrollIntoView({
+<<<<<<< HEAD
             behavior: 'smooth', 
             block: "center", 
             inline: "center"
           });   
     },2000);
+=======
+            behavior: 'smooth'
+        });
+    }, 2000);
+>>>>>>> 75895db778a14d2cff3a7d1cdb559e4b6fa4f474
 }
 
 // Navegação pós Quiz
 
 function reloadQuiz() {
-    
+
     const alternative = document.querySelectorAll('.alternative');
 
     for (let i = 0; i < alternative.length; i++) {
 
-    alternative[i].classList.remove('non-selected');
-    alternative[i].classList.remove('correct');
-    alternative[i].classList.remove('wrong');
+        alternative[i].classList.remove('non-selected');
+        alternative[i].classList.remove('correct');
+        alternative[i].classList.remove('wrong');
     }
-    
+
     let quizlevel = document.querySelector('.level');
     let button = document.getElementById('btn-submit');
     let location = document.querySelector('.backToHome');
@@ -268,17 +278,45 @@ function reloadQuiz() {
     rightAnswers = 0;
     checkAnswer = 0;
 
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
 }
 
 function backToHome() {
 
     window.location.reload();
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
 
     $quizPage.innerHTML = '';
     nQuestions = 0;
+    if (result >= levels[i].minValue && result < levels[i + 1].minValue) {
+
+        $quizPage.innerHTML += `<div class="question-box">
+                                <div class="question"
+                                style="background-color: #EC362D ">
+                                    <h2>${levels[i].title}</h2>
+                                </div>
+                                <div class="levels-container">
+                                    <img src="${levels[i].image}">
+                                    <span>${levels[i].text}</span>
+                                </div>
+                            </div>`;
+    }
+
+    if (result >= levels[levels.length - 1].minValue) {
+
+        $quizPage.innerHTML += `<div class="question-box">
+                                        <div class="question"
+                                        style="background-color: #EC362D ">
+                                            <h2>${levels[levels.length - 1].title}</h2>
+                                        </div>
+                                        <div class="levels-container">
+                                            <img src="${levels[levels.length - 1].image}">
+                                            <span>${levels[levels.length - 1].text}</span>
+                                        </div>
+                                    </div>`;
+    }
 }
+
 
 // Passo 7 - Tela de criação: Informações básicas do quiz
 
@@ -306,6 +344,10 @@ function validationsInfo() {
     if (quiztitleOK && nQuestionsOK && nLevelsOK && URLimgOK) {
         title = quizTitle;
         image = URLimg;
+
+        object.title = title;
+        object.image = image;
+
         quizQuestions();
     } else {
         alert("Verifique as consições necessárias para criar o Quizz e tente novamente (:");
@@ -316,15 +358,12 @@ function validationsInfo() {
 
 function quizQuestions() {
 
-    const $info = document.querySelector('.basic-info');
-    const $quizzQuestions = document.querySelector('.quiz-questions');
-
     $info.classList.add('hidden');
     $quizzQuestions.classList.remove('hidden');
 
-    for(let i = 1; i <= nQuestions; i++) {
+    for (let i = 1; i <= nQuestions; i++) {
 
-        $quizzQuestions.innerHTML += `
+        $quizzQuestions.innerHTML += /* html */`
         <form class="questions-container">
             <label for="firstquestion">Pergunta ${i} <ion-icon name="create-sharp" onclick="toggleSwap(${i})"></ion-icon></label>
             <div class="main" id="template${i}" >
@@ -348,26 +387,32 @@ function quizQuestions() {
                 </div>
             </div>
         </form>`;
+
     }
 
-    $quizzQuestions.innerHTML +=    `<button id="btn-submit" onclick="validationsQuest()">
+    $quizzQuestions.innerHTML += `<button id="btn-submit" onclick="validateQuestions()">
                                         Prosseguir para criar níveis
                                     </button>`
+
+
 }
 
 function toggleSwap(i) {
     document.getElementById(`template${i}`).classList.toggle('swap');
 }
 
+
+
 // Passo 10 - Validando as informações fornecidas pelo usuário na tela 3.2
 
-function validationsQuest() {
+function validateQuestions() {
 
-    let validate = true;
     let currentValidate;
+    let validate = true;
 
-    for(let i = 1; i <= nQuestions; i++) {
+    addQuestions();
 
+<<<<<<< HEAD
         let textQuest = document.getElementById(`textquestion${i}`).value;
         let correctAnswer = document.getElementById(`correctanswer-${i}`).value;
         let wrongAnswer1 = document.getElementById(`wronganswer-1-${i}`).value;
@@ -387,9 +432,27 @@ function validationsQuest() {
         
         if (textQuestOK && correctAnswerOK && URLOK && wrongAnswerOK && URLOK){
             
+=======
+    console.log('object: ', object);
+
+    for (let i = 0; i < nQuestions; i++) {
+
+        const currentQuestion = object.questions[i];
+
+        let textQuestion = currentQuestion.title;
+        let colorQuestion = currentQuestion.color;
+
+        let textQuestionOK = (textQuestion.length > 19 && textQuestion !== "");
+        let colorQuestionOK = colorValidation(colorQuestion);
+
+        console.log({ textQuestionOK, colorQuestionOK });
+
+        if (textQuestionOK && colorQuestionOK) {
+
+>>>>>>> 75895db778a14d2cff3a7d1cdb559e4b6fa4f474
             currentValidate = true;
 
-        }else {
+        } else {
 
             currentValidate = false;
         }
@@ -398,9 +461,105 @@ function validationsQuest() {
     }
 
     if (validate) {
+        validateAnswers();
+    } else {
+        alert("Verifique as condições necessárias para criar o Quizz e tente novamente (:");
+    }
+
+}
+
+function validateAnswers() {
+    let currentValidate;
+    let validate = true;
+
+    addAnswersToQuestions();
+
+    console.log('object: ', object);
+
+    for (let i = 0; i < nQuestions; i++) {
+
+        const currentQuestion = object.questions[i];
+
+        for (let item of currentQuestion.answers) {
+            let validWrongAnswer = false;
+
+            if (item.isCorrectAnswer === false) {
+                if (item.text !== '') {
+                    validWrongAnswer = true;
+                }
+                else {
+                    validWrongAnswer = false;
+                    break;
+                }
+            }
+
+            correctAnswerOK = (item.text !== '')
+            URLOK = URLvalidation(item.image);
+            wrongAnswersOK = validWrongAnswer;
+        }
+    }
+
+    console.log({ correctAnswerOK, wrongAnswersOK, URLOK });
+
+
+    if (correctAnswerOK && URLOK && wrongAnswersOK) {
+
+        currentValidate = true;
+
+    } else {
+
+        currentValidate = false;
+    }
+
+    validate = (validate && currentValidate);
+
+
+    if (validate) {
         quizzLevel();
     } else {
         alert("Verifique as condições necessárias para criar o Quizz e tente novamente (:");
+    }
+}
+
+function addQuestions() {
+    let tempQuestions = [];
+
+    for (let i = 1; i <= nQuestions; i++) {
+        let question = {}
+
+        question.title = document.getElementById(`textquestion${i}`).value;
+        question.color = document.getElementById(`backgroundcolor-${i}`).value;
+
+        tempQuestions.push(question);
+    }
+
+    object.questions = tempQuestions;
+}
+
+function addAnswersToQuestions() {
+
+    for (let i = 1; i <= nQuestions; i++) {
+
+        let tempAnswers = []
+
+        tempAnswers.push({
+            text: document.querySelector(`#correctanswer-${i}`).value,
+            image: document.querySelector(`#correctURL-${i}`).value,
+            isCorrectAnswer: true
+        })
+
+        for (let incorrectAnswerIndex = 1; incorrectAnswerIndex <= 3; incorrectAnswerIndex++) {
+            tempAnswers.push({
+                text: document.querySelector(`#wronganswer-${incorrectAnswerIndex}-${i}`).value,
+                image: document.querySelector(`#wrongURL-${incorrectAnswerIndex}-${i}`).value,
+                isCorrectAnswer: false
+            })
+        }
+
+        console.log(object.questions);
+
+        object.questions[i - 1].answers = tempAnswers;
+
     }
 
 }
@@ -409,38 +568,45 @@ let numberLevels;
 
 function quizzLevel() {
 
+    /* $info.classList.add('hidden');
+    $quizzQuestions.classList.remove('hidden'); */
+
     numberLevels = document.querySelector('[data-level]').value;
 
     for (let i = 0; i < numberLevels; i++) {
 
-        $info.classList.add('hidden');
-
+        $quizzQuestions.classList.add('hidden');
         $quizzLevel.classList.remove('hidden');
 
         let template = /* html */`
-            <div class="quizz-form">
-                <form>
-                    <h2>Nível ${[i + 1]} <span>
-                            <ion-icon name="create-outline"></ion-icon>
-                        </span></h2>
-                    <div>
-                        <input data-title type="text" minlength="10" required placeholder="Título do nível">
-                        <label>Mínimo 10 caracteres</label>
-                    </div>
-                    <div >
-                        <input value="0" data-number type="number" min="0" max="100" required placeholder="% de acerto mínimo">
-                        <label>1 a 100</label>
-                    </div>
-                    <div>
-                        <input data-url type="url" required placeholder="URL da imagem">
-                        <label>Ex.: https://www.google.com/</label>
-                    </div>
-                    <div>
-                        <input data-description type="text" required placeholder="Descrição do nível">
-                        <label>Mínimo 30 caracteres</label>
-                    </div>
-                </form>
-        </div>
+        <div class="quizz-form">
+        <form>
+            <div onclick="toggleSwap(${i})"> 
+                <h2>Nível ${[i + 1]} <span>
+                        <ion-icon name="create-sharp" ></ion-icon>
+                    </span></h2>
+            </div>
+            <div class="form" id="template${i}">
+                <div>
+                    <input data-title type="text" minlength="10" required placeholder="Título do nível">
+                    <label>Mínimo 10 caracteres</label>
+                </div>
+                <div>
+                    <input value="0" data-number type="number" min="0" max="100" required
+                        placeholder="% de acerto mínimo">
+                    <label>1 a 100</label>
+                </div>
+                <div>
+                    <input data-url type="url" required placeholder="URL da imagem">
+                    <label>Ex.: https://www.google.com/</label>
+                </div>
+                <div>
+                    <input data-description type="text" required placeholder="Descrição do nível">
+                    <label>Mínimo 30 caracteres</label>
+                </div>
+            </div>
+        </form>
+    </div>
         `;
 
         $quizzLevelBox.innerHTML += template;
@@ -477,15 +643,8 @@ function validationLevel() {
             }
         }
     }
-    
+
     return valid;
-}
-
-function quizzLevel() {
-
-    $quizzQuestions.classList.add('hidden');
-    $quizzLevel.classList.remove('hidden');
-
 }
 
 function quizzReady() {
@@ -495,8 +654,8 @@ function quizzReady() {
         $quizzLevel.classList.add('hidden');
         $quizzSuccess.classList.remove('hidden');
 
-        const $title = document.querySelector('.quizz-form input').value;
-        const $urlImage = document.querySelector('.quizz-form [data-url]').value;
+        const $title = document.querySelector('.form-container input').value;
+        const $urlImage = document.querySelector('.form-container input:nth-child(2)').value;
 
         $quizzSuccess.innerHTML = '';
 
@@ -513,7 +672,7 @@ function quizzReady() {
         <div>
         <div>
             <button class="quizz-button" type="submit" onclick="startQuizz(this)">Acessar Quizz</button>
-            <button class="home-button" type="submit" onclick="quizzHome();">Acessar Quizz</button>
+            <button class="home-button" type="submit" onclick="quizzHome();">Voltar para Home</button>
         </div>
         `
         $quizzSuccess.innerHTML += template;
@@ -535,34 +694,34 @@ function quizzHome() {
 /* Validações */
 
 /* Validações da URL de imagens */
-function URLvalidation(str){
+function URLvalidation(str) {
     if (str != null && str != '') {
         let regex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
         return regex.test(str);
-    }else{
+    } else {
         return false;
     }
 };
 
 /* Validação de cor */
-function colorValidation(str){
+function colorValidation(str) {
     const regex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/i;
-        return regex.test(str);
+    return regex.test(str);
 };
 
 //Habilita botão do form da tela 3.3
 
 function attachEvent() {
-    
+
     const $button = document.querySelector('.quizz-button');
-    
+
     document.querySelectorAll('.quizz-form input').forEach(input => {
-    
+
         input.addEventListener('input', () => {
-    
+
             if (validationLevel() === true) {
                 $button.classList.remove('disabled');
-    
+
             } else {
                 $button.classList.add('disabled');
             }
