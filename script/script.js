@@ -445,17 +445,18 @@ function validateQuestions() {
                 validate = (validate && currentValidate);
             }
 
-            if (validate) {
-                validateAnswers();
-            } else {
-                alert("Verifique as condições necessárias para criar o Quizz e tente novamente (:");
-            }
-
         }
+    }
+    
+    if (validate) {
+        quizzLevel();
+        addAnswersToQuestions();
+    } else {
+        alert("Verifique as condições necessárias para criar o Quizz e tente novamente (:");
     }
 }
 
-function validateAnswers() {
+/*function validateAnswers() {
     let currentValidate;
     let validate = true;
 
@@ -484,27 +485,25 @@ function validateAnswers() {
             URLOK = URLvalidation(item.image);
             wrongAnswersOK = validWrongAnswer;
         }
-    }
 
+        if (correctAnswerOK && URLOK && wrongAnswersOK) {
 
-    if (correctAnswerOK && URLOK && wrongAnswersOK) {
+            currentValidate = true;
+    
+        } else {
+    
+            currentValidate = false;
+        }
 
-        currentValidate = true;
-
-    } else {
-
-        currentValidate = false;
-    }
-
-    validate = (validate && currentValidate);
-
+        validate = (validate && currentValidate);
+    }  
 
     if (validate) {
         quizzLevel();
     } else {
         alert("Verifique as condições necessárias para criar o Quizz e tente novamente (:");
     }
-}
+}*/
 
 function addQuestions() {
     let tempQuestions = [];
