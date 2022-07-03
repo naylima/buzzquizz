@@ -120,7 +120,7 @@ function renderIndividualQuizz() {
         }
         for (let j = 0; j < answers.length; j++) {
 
-            const questionBox = document.querySelectorAll(".question-box .alternatives");
+            const questionBox = document.querySelectorAll(".alternatives");
             questionBox[questionBox.length - 1].innerHTML += `
                                     <div class="alternative ${answers[j].isCorrectAnswer}" onClick="selectedAnswer(this)">
                                         <img src="${answers[j].image}">
@@ -237,7 +237,9 @@ function quizResults() {
     let levelResult = document.querySelector('.level');
     setTimeout( () => {
         levelResult.scrollIntoView({
-            behavior: 'smooth'
+            behavior: 'smooth', 
+            block: "center", 
+            inline: "center"
           });   
     },2000);
 }
@@ -328,7 +330,7 @@ function quizQuestions() {
             <div class="main" id="template${i}" >
                 <div> 
                     <input type="text" placeholder="Texto da pergunta" id="textquestion${i}">
-                    <input type="text" placeholder="Cor de fundo da pergunta" id="backgroundcolor-${i}">
+                    <input type="color" placeholder="Cor de fundo da pergunta" id="backgroundcolor-${i}">
                 </div>
                 <div>
                     <label for="correctanswer">Resposta correta</label>
@@ -367,7 +369,6 @@ function validationsQuest() {
     for(let i = 1; i <= nQuestions; i++) {
 
         let textQuest = document.getElementById(`textquestion${i}`).value;
-        let colorQuest  = document.getElementById(`backgroundcolor-${i}`).value;
         let correctAnswer = document.getElementById(`correctanswer-${i}`).value;
         let wrongAnswer1 = document.getElementById(`wronganswer-1-${i}`).value;
         let wrongAnswer2 = document.getElementById(`wronganswer-2-${i}`).value;
@@ -377,7 +378,6 @@ function validationsQuest() {
         let URL3 = document.getElementById(`wrongURL-3-${i}`).value;
 
         let textQuestOK = (textQuest.length > 19 && textQuest.length !== "");
-        let colorQuestOK = colorValidation(colorQuest);
         let correctAnswerOK = (correctAnswer !== "");
         let wrongAnswerOK = (wrongAnswer1 !== "" || wrongAnswer2 !== "" || wrongAnswer3 !== "");
         let URL1OK = URLvalidation(URL1);
@@ -385,7 +385,7 @@ function validationsQuest() {
         let URL3OK = URLvalidation(URL3);
         let URLOK = (URL1OK && URL2OK && URL3OK);
         
-        if (textQuestOK && colorQuestOK && correctAnswerOK && URLOK && wrongAnswerOK && URLOK){
+        if (textQuestOK && correctAnswerOK && URLOK && wrongAnswerOK && URLOK){
             
             currentValidate = true;
 

@@ -225,6 +225,10 @@ section p {
     word-wrap: break-word;  
 }
 
+.alternative {
+    width: 340px;
+}
+
 .non-selected {
     filter: opacity(0.3);
     transition:all 500ms linear;
@@ -341,6 +345,9 @@ section p {
 
 .questions-container label {
     font-size: 18px;
+    font-weight: 700;
+    font-family: 'Roboto';
+    color:#000000;
     align-self: flex-start;
 }
 
@@ -350,6 +357,7 @@ section p {
     justify-content: space-between;
     align-self: center;
     margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 .questions-container ion-icon {
@@ -513,7 +521,26 @@ ion-icon {
     .box-user p {
         padding-inline: 0;
     }
+    
+    /*Tela 2*/
 
+    .quiz-head {
+        height: 142px;
+    }
+
+    .question-box {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .alternatives img {
+        width: 100%;
+        height: 100px;
+    }
+
+    .alternative {
+        width: 48%;
+    }
 
 }
 
