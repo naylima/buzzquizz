@@ -241,11 +241,11 @@ function quizResults() {
     let levelResult = document.querySelector('.level');
     setTimeout(() => {
         levelResult.scrollIntoView({
-            behavior: 'smooth', 
-            block: "center", 
+            behavior: 'smooth',
+            block: "center",
             inline: "center"
-          });   
-    },2000);
+        });
+    }, 2000);
 }
 
 // Navegação pós Quiz
@@ -406,57 +406,58 @@ function validateQuestions() {
 
     addQuestions();
 
-        let textQuest = document.getElementById(`textquestion${i}`).value;
-        let correctAnswer = document.getElementById(`correctanswer-${i}`).value;
-        let wrongAnswer1 = document.getElementById(`wronganswer-1-${i}`).value;
-        let wrongAnswer2 = document.getElementById(`wronganswer-2-${i}`).value;
-        let wrongAnswer3 = document.getElementById(`wronganswer-3-${i}`).value;
-        let URL1 = document.getElementById(`wrongURL-1-${i}`).value;
-        let URL2 = document.getElementById(`wrongURL-2-${i}`).value;
-        let URL3 = document.getElementById(`wrongURL-3-${i}`).value;
+    let textQuest = document.getElementById(`textquestion${i}`).value;
+    let correctAnswer = document.getElementById(`correctanswer-${i}`).value;
+    let wrongAnswer1 = document.getElementById(`wronganswer-1-${i}`).value;
+    let wrongAnswer2 = document.getElementById(`wronganswer-2-${i}`).value;
+    let wrongAnswer3 = document.getElementById(`wronganswer-3-${i}`).value;
+    let URL1 = document.getElementById(`wrongURL-1-${i}`).value;
+    let URL2 = document.getElementById(`wrongURL-2-${i}`).value;
+    let URL3 = document.getElementById(`wrongURL-3-${i}`).value;
 
-        let textQuestOK = (textQuest.length > 19 && textQuest.length !== "");
-        let correctAnswerOK = (correctAnswer !== "");
-        let wrongAnswerOK = (wrongAnswer1 !== "" || wrongAnswer2 !== "" || wrongAnswer3 !== "");
-        let URL1OK = URLvalidation(URL1);
-        let URL2OK = URLvalidation(URL2);
-        let URL3OK = URLvalidation(URL3);
-        let URLOK = (URL1OK && URL2OK && URL3OK);
-        
-        if (textQuestOK && correctAnswerOK && URLOK && wrongAnswerOK && URLOK){
-            
-    console.log('object: ', object);
+    let textQuestOK = (textQuest.length > 19 && textQuest.length !== "");
+    let correctAnswerOK = (correctAnswer !== "");
+    let wrongAnswerOK = (wrongAnswer1 !== "" || wrongAnswer2 !== "" || wrongAnswer3 !== "");
+    let URL1OK = URLvalidation(URL1);
+    let URL2OK = URLvalidation(URL2);
+    let URL3OK = URLvalidation(URL3);
+    let URLOK = (URL1OK && URL2OK && URL3OK);
 
-    for (let i = 0; i < nQuestions; i++) {
+    if (textQuestOK && correctAnswerOK && URLOK && wrongAnswerOK && URLOK) {
 
-        const currentQuestion = object.questions[i];
+        console.log('object: ', object);
 
-        let textQuestion = currentQuestion.title;
-        let colorQuestion = currentQuestion.color;
+        for (let i = 0; i < nQuestions; i++) {
 
-        let textQuestionOK = (textQuestion.length > 19 && textQuestion !== "");
-        let colorQuestionOK = colorValidation(colorQuestion);
+            const currentQuestion = object.questions[i];
 
-        console.log({ textQuestionOK, colorQuestionOK });
+            let textQuestion = currentQuestion.title;
+            let colorQuestion = currentQuestion.color;
 
-        if (textQuestionOK && colorQuestionOK) {
+            let textQuestionOK = (textQuestion.length > 19 && textQuestion !== "");
+            let colorQuestionOK = colorValidation(colorQuestion);
 
-            currentValidate = true;
+            console.log({ textQuestionOK, colorQuestionOK });
 
-        } else {
+            if (textQuestionOK && colorQuestionOK) {
 
-            currentValidate = false;
+                currentValidate = true;
+
+            } else {
+
+                currentValidate = false;
+            }
+
+            validate = (validate && currentValidate);
         }
 
-        validate = (validate && currentValidate);
-    }
+        if (validate) {
+            validateAnswers();
+        } else {
+            alert("Verifique as condições necessárias para criar o Quizz e tente novamente (:");
+        }
 
-    if (validate) {
-        validateAnswers();
-    } else {
-        alert("Verifique as condições necessárias para criar o Quizz e tente novamente (:");
     }
-
 }
 
 function validateAnswers() {
@@ -718,5 +719,5 @@ function attachEvent() {
             }
         })
     })
+}
 
-}    
