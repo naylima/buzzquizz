@@ -457,7 +457,7 @@ function validateQuestions() {
     }
 }
 
-/*function validateAnswers() {
+function validateAnswers() {
     let currentValidate;
     let validate = true;
 
@@ -490,21 +490,21 @@ function validateQuestions() {
         if (correctAnswerOK && URLOK && wrongAnswersOK) {
 
             currentValidate = true;
-    
+
         } else {
-    
+
             currentValidate = false;
         }
 
         validate = (validate && currentValidate);
-    }  
+    }
 
     if (validate) {
         quizzLevel();
     } else {
         alert("Verifique as condições necessárias para criar o Quizz e tente novamente (:");
     }
-}*/
+}
 
 function addQuestions() {
     let tempQuestions = [];
@@ -553,10 +553,10 @@ function addLevels() {
     for (let i = 1; i <= nLevels; i++) {
         let level = {}
 
-        level.title = document.querySelector('[data-title]')
-        level.image = document.querySelector('[data-image]'),
-        level.text = document.querySelector('[data-description]'),
-        level.minValue = document.querySelector('[data-number]')
+        level.title = document.querySelector('[data-title]').value
+        level.image = document.querySelector('[data-url]').value,
+        level.text = document.querySelector('[data-description]').value,
+        level.minValue = document.querySelector('[data-number]').value
 
         tempLevels.push(level);
     }
@@ -582,20 +582,19 @@ function quizzLevel() {
                 </div>
                 <div class="form" id="template${i}">
                     <div>
-                        <input data-title type="text" minlength="10" required placeholder="Título do nível">
+                        <input data-title type="text" placeholder="Título do nível">
                         <label>Mínimo 10 caracteres</label>
                     </div>
                     <div>
-                        <input value="0" data-number type="number" min="0" max="100" required
-                            placeholder="% de acerto mínimo">
+                        <input data-number type="number" value="0" placeholder="% de acerto mínimo">
                         <label>1 a 100</label>
                     </div>
                     <div>
-                        <input data-url type="url" required placeholder="URL da imagem">
+                        <input data-url type="url" placeholder="URL da imagem">
                         <label>Ex.: https://www.google.com/</label>
                     </div>
                     <div>
-                        <input data-description type="text" required placeholder="Descrição do nível">
+                        <input data-description type="text" placeholder="Descrição do nível">
                         <label>Mínimo 30 caracteres</label>
                     </div>
                 </div>
@@ -617,44 +616,70 @@ function validationLevel() {
     let regex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
 
     const $inputs = document.querySelectorAll('.quizz-form input');
-    let array = [];
 
-    for (input of $inputs) {
-        if (input.hasAttribute('data-title') ||
-            input.hasAttribute('data-number') ||
-            input.hasAttribute('data-url') ||
-            input.hasAttribute('data-description')) {
+    for (let i in $inputs) {
+        console.log($inputs[i]);
+        
+        if ($inputs[i].hasAttribute('data-title')) {
+            
+            if ($inputs[i].value.length >= 10) {
+                console.log('passou: ', i);
+                
+                valid = true;
+                
+            } else {
+                valid = false;
+                break;
+            }
 
-            if (input.value.length >= 10 ||
-                Number(input.value) <= 100 && Number(input.value) > 0 ||
-                regex.test(input.value) === true ||
-                input.value.length >= 30) {
+        } else if ($inputs[i].hasAttribute('data-number')) {
+
+            if ($inputs[i].value <= 100 && $inputs[i].value >= 0) {
 
                 valid = true;
 
-                if (input.hasAttribute('data-number')) {
-                    array.push(input.value);
-                }
+            } else {
+                valid = false;
+                break;
+            }
+        } else if ($inputs[i].hasAttribute('data-url')) {
+
+            if (regex.test($inputs[i].value) === true) {
+
+                valid = true;
+
+            } else {
+                valid = false;
+                break;
+            }
+        } else if ($inputs[i].hasAttribute('data-description')) {
+
+            if ($inputs[i].value.length >= 15) { //mudar para 30
+
+                valid = true;
 
             } else {
                 valid = false;
                 break;
             }
         }
+
     }
 
-    if (array.find(e => e == 0)) {
+    /* if (array.find(e => e == 0)) {
         valid = true;
     } else {
         valid = false;
-    }
+    } */
+    
+    return valid
 }
 
 function quizzReady() {
-    
-    addLevels();
 
     if (validationLevel() === true) {
+
+        addLevels();
 
         $quizzLevel.classList.add('hidden');
         $quizzSuccess.classList.remove('hidden');
