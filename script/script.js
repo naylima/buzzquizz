@@ -666,12 +666,6 @@ function validationLevel() {
 
     }
 
-    /* if (array.find(e => e == 0)) {
-        valid = true;
-    } else {
-        valid = false;
-    } */
-    
     return valid
 }
 

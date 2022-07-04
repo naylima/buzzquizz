@@ -163,9 +163,11 @@ section p {
     font-style: normal;
     font-weight: 400;
     font-size: 39px;
-    line-height: 22px;
+    line-height: 1.2;
     color: #FFFFFF;
     text-align: center;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
 .question-box {
@@ -194,6 +196,7 @@ section p {
     font-weight: 600;
     font-size: 19px;
     color: #FFF;
+    word-break: break-all;
 }
 
 .alternatives {
@@ -259,6 +262,7 @@ section p {
     font-size: 18px;
     word-wrap: break-word;
     color: #484848;
+    word-break: break-all;
 }
 
 .quiz-page #btn-submit {
@@ -537,7 +541,49 @@ h2 {
     .alternative {
         width: 48%;
     }
+    .levels-container {
+        flex-direction: column;
+    }
 
+    .levels-container img {
+        width: auto;
+    }
+
+    .levels-container span {
+        width: auto;
+        margin-left: 0px;
+        margin-top: 9px;
+    }
+
+    /* Tela 3.1*/
+    .form-container {
+        width: 100%;
+    }
+
+    .form-container input {
+        width: calc(100% - 18px);
+    }
+
+    #btn-submit {
+        margin-top: 30px;
+    }
+
+    /* Tela 3.2 */
+    .questions-container {
+        width: 100%;
+    }
+
+    .questions-container label:first-child {
+        width: calc(100% - 18px);
+    }
+
+    .main {
+        width: calc(100% - 18px);
+    }
+
+    .questions-container input {
+        width: 100%;
+    }
 }
 
 @media (max-width: 768px) {
@@ -597,5 +643,4 @@ h2 {
 
     }
 
-    .quizz-form div:nth-child(5) input::placeholder {}
 }
