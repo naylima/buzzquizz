@@ -21,8 +21,10 @@
 
     <div class="container initial-screen ">
         <div class="box-user">
-            <p>Você não criou nenhum <br> quizz ainda :(</p>
-            <button onclick="quizBasicInfo()">Criar Quizz</button>
+            <div class="not-created">
+                <p>Você não criou nenhum <br> quizz ainda :(</p>
+                <button onclick="quizBasicInfo()">Criar Quizz</button>
+            </div>
         </div>
         <section>
             <p>Todos os Quizzes</p>
@@ -64,7 +66,7 @@
         <div>
             <div class="title-level">
                 <p class="title-page">Agora, decida os níveis!</p>
-                
+
             </div>
 
             <button class="quizz-button disabled" type="submit" onclick="quizzReady()">Finalizar Quizz</button>

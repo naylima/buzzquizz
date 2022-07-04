@@ -1,6 +1,8 @@
 let quizz;
 let nQuestions = null;
 let nLevels;
+let idQuizz
+let idCriado = localStorage;
 let object = {
     title: '',
     image: '',
@@ -9,6 +11,7 @@ let object = {
 }
 
 const $info = document.querySelector('.basic-info');
+const $container = document.querySelector('.container');
 const $quizzQuestions = document.querySelector('.quiz-questions');
 const $quizzLevelBox = document.querySelector('.quizz-level .title-level');
 const $quizzLevel = document.querySelector('.quizz-level');
@@ -23,16 +26,66 @@ searchQuizz();
 function searchQuizz() {
     const promise = axios.get(urlApi);
     promise.then(processQuizz);
+
 }
 
 // PASSO 2 - Processa requisição dos quizzes
 function processQuizz(response) {
     quizz = response.data;
     renderQuizz();
+    addQuizzUser();
 }
 
 // PASSO 3 - Renderiza quizzes na tela
+let dados = [];
 
+function sendObjectToServer() {
+    let promisse = axios.post(urlApi, object)
+    promisse.then(send);
+
+}
+
+function send(resposta) {
+
+    idQuizz = resposta.data.id;
+
+    dados.push(idQuizz);
+    // no jeito aintigo, vc precisaria ler a chave combinada com o id
+    localStorage.setItem('idQuizz', JSON.stringify(dados));
+
+    idCriado = JSON.parse(localStorage.getItem('idQuizz'));
+}
+
+let userQuizz;
+const boxUser = document.querySelector('.box-user');
+
+function addQuizzUser() {
+
+
+    for (let i = 0; i < idCriado.length; i++) {
+
+        axios.get("https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes/" + idCriado[i])
+            .then(renderizarQuizzUser)
+
+        /* const notCreated = document.querySelector('.not-created')
+        notCreated.classList.add('hidden'); */
+
+    }
+
+}
+
+
+function renderizarQuizzUser() {
+    userQuizz = /* html */`
+                        <div class="quizz" id="${quizz[i].id}" onclick="startQuizz(this) ">
+                            <img src="${quizz[i].image}" alt="">
+                            <div class="title-quizz">
+                                ${quizz[i].title}
+                            </div>
+                        </div>
+                    `;
+    boxUser.innerHTML += userQuizz;
+}
 
 function renderQuizz() {
 
@@ -42,25 +95,25 @@ function renderQuizz() {
 
     quizzElement.innerHTML = '';
 
-    quizz.forEach(item => {
+    for (i = 0; i < quizz.length; i++) {
 
         template = /* html */`
-            <div class="quizz" id="${item.id}" onclick="startQuizz(this) ">
-                <img src="${item.image}" alt="">
-                <div class="title-quizz">
-                    ${item.title}
-                </div>
-            </div>
-        `;
-
+                    <div class="quizz" id="${quizz[i].id}" onclick="startQuizz(this) ">
+                        <img src="${quizz[i].image}" alt="">
+                        <div class="title-quizz">
+                            ${quizz[i].title}
+                        </div>
+                    </div>
+                `;
         quizzElement.innerHTML += template;
-    })
+    }
+
 }
+
 
 // PASSO 4 - Inicia quizz 
 const $quizz = document.querySelector('section');
 const $boxUser = document.querySelector('.box-user');
-const $container = document.querySelector('.container');
 const $quizPage = document.querySelector('.quiz-page');
 
 function startQuizz(selectedQuizz) {
@@ -417,8 +470,9 @@ function validateQuestions() {
         let textQuestionOK = (textQuestion.length > 19 && textQuestion !== '');
         let colorQuestionOK = colorValidation(colorQuestion);
 
+        console.log(textQuestionOK, textQuestionOK);
 
-        if (textQuestionOK && colorQuestionOK) {
+        if (textQuestionOK === true && colorQuestionOK === true) {
 
             console.log('object: ', object);
 
@@ -555,8 +609,8 @@ function addLevels() {
 
         level.title = document.querySelector('[data-title]').value
         level.image = document.querySelector('[data-url]').value,
-        level.text = document.querySelector('[data-description]').value,
-        level.minValue = document.querySelector('[data-number]').value
+            level.text = document.querySelector('[data-description]').value,
+            level.minValue = document.querySelector('[data-number]').value
 
         tempLevels.push(level);
     }
@@ -616,55 +670,37 @@ function validationLevel() {
     let regex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
 
     const $inputs = document.querySelectorAll('.quizz-form input');
+    const array = [];
 
-    for (let i in $inputs) {
-        console.log($inputs[i]);
-        
-        if ($inputs[i].hasAttribute('data-title')) {
-            
-            if ($inputs[i].value.length >= 10) {
-                console.log('passou: ', i);
-                
-                valid = true;
-                
-            } else {
-                valid = false;
-                break;
-            }
+    for (input of $inputs) {
+        if (input.hasAttribute('data-title') ||
+            input.hasAttribute('data-number') ||
+            input.hasAttribute('data-url') ||
+            input.hasAttribute('data-description')) {
 
-        } else if ($inputs[i].hasAttribute('data-number')) {
-
-            if ($inputs[i].value <= 100 && $inputs[i].value >= 0) {
+            if (input.value.length >= 10 ||
+                Number(input.value) <= 100 && Number(input.value) > 0 ||
+                regex.test(input.value) === true ||
+                input.value.length >= 30) {
 
                 valid = true;
 
-            } else {
-                valid = false;
-                break;
-            }
-        } else if ($inputs[i].hasAttribute('data-url')) {
-
-            if (regex.test($inputs[i].value) === true) {
-
-                valid = true;
-
-            } else {
-                valid = false;
-                break;
-            }
-        } else if ($inputs[i].hasAttribute('data-description')) {
-
-            if ($inputs[i].value.length >= 15) { //mudar para 30
-
-                valid = true;
+                if (input.hasAttribute('data-number')) {
+                    array.push(input.value);
+                }
 
             } else {
                 valid = false;
                 break;
             }
         }
-
     }
+
+    /* if (array.find(e => e == 0)) {
+        valid = true;
+    } else {
+        valid = false;
+    } */
 
     return valid
 }
@@ -704,6 +740,8 @@ function quizzReady() {
     } else {
         alert('Verifique as condições necessárias para criar o Quizz e tente novamente (:')
     }
+
+    sendObjectToServer()
 }
 
 function quizzHome() {
