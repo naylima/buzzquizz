@@ -166,13 +166,17 @@ function selectedAnswer(answer) {
     answer.classList.remove('non-selected');
 
     // scrollar para a próxima pergunta - NÃO TÁ FUNCIONANDO ***
-    /*let currentQuestion = answer.parentNode;
-    let nextQuestion = currentQuestion.parentNode.nextSibling;
+    let currentQuestion = answer.parentNode.parentNode;
+    let nextQuestion = currentQuestion.nextElementSibling;
+    console.log(currentQuestion);
+    console.log("next",nextQuestion);
     setTimeout( () => {
         nextQuestion.scrollIntoView({
-            behavior: 'smooth'
+            behavior: 'smooth',
+            block: "center",
+            inline: "center"
           });
-    },2000);*/
+    },2000);
 
     if (checkAnswer === nQuestions) {
         quizResults();
@@ -634,12 +638,14 @@ function validationLevel() {
 
         } else if ($inputs[i].hasAttribute('data-number')) {
 
-            if ($inputs[i].value <= 100 && $inputs[i].value >= 0) {
+            if ($inputs[i].value <= 100 && $inputs[i].value >= 0 && $inputs[1] == 0) {
 
                 valid = true;
 
-            } else {
+            } 
+            else {
                 valid = false;
+                //alert ("O valor do primeiro nível deve ser 0, os demais entre 0 e 100")
                 break;
             }
         } else if ($inputs[i].hasAttribute('data-url')) {
